@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/04/07
-- Version: v1.0.0.0
+- Last Modified: 2014/04/08
+- Version: v1.1.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -31,10 +31,17 @@ Description
 
 A C++ CSV (character-seperated value, also known as comma-seperated value) parser which can both decode/encode CSV files.
 
+Powerful
+--------
+
+You can define what CsvCpp will use as a line delimiter (Parser::lineDelimiter).
+
 Portable (Platform Agnostic)
 ----------------------------
 
-CsvCpp can be used with ease on both Linux and embedded systems. All platform-specific operations are handled via callbacks that you provide the functionality for (e.g. printing to the command line and printing debug information). These callbacks exist in Print.hpp/.cpp.
+CsvCpp can be used with ease on both Linux and embedded systems (as long as they are powerful enough to support strings and streams).
+
+All platform-specific operations such as debug and error message printing are handled by providing you with pointer variables to assign to objects at run time.
 
 
 Easy Including
@@ -58,15 +65,7 @@ CsvCpp used the UnitTest++ library to perform unit testing. They are located und
 The unit tests check for:
 
 - Basic funcitonality
-
-Event-driven Callback Support
------------------------------
-
-CsvCpp leverages the slotmachine-cpp library to provide event-driven callbacks. slotmachine-cpp supports callbacks to methods (instance functions), without CsvCpp having any previous knowledge about the class (type agnostic).
-
-List of events supported by callbacks:
-
-- None yet!
+- Various line delimiters
 
 
 Installation
@@ -132,5 +131,6 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v1.1.0.0  2014/04/08 Added portable logging capability (debug and error messages) with Log.hpp/.cpp. Added ability to specify the line delimiting characters in CsvCpp::Parser, closes #3. Added related unit tests for various types of delimiters. Added unit test for when the last line does not have the line delimiting character. Edited README. Parser no longer causes segmentation fault if last line does not have a line delimitier, closes #1. Unit tests no longer leave left-over test.csv files, closes #2.
 v1.0.0.0  2014/04/07 Initial commit. Parser performs basic CSV file decoding into a CsvTable object. Basic unit test makes sure than the Parser object can read a simple CSV file correctly.
 ========= ========== ===================================================================================================

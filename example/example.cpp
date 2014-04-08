@@ -15,7 +15,7 @@
 #include "../api/CsvCpp.hpp"
 
 
-
+/*
 class Printer
 {
 public:
@@ -33,12 +33,12 @@ public:
 	{
 		std::cout << msg;
 	}
-};
+};*/
 
 int main()
 {
 	// Configure print outputs
-	Printer printer;
+	//Printer printer;
 
 
 	while(1)

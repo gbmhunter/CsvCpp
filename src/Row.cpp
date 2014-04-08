@@ -12,7 +12,7 @@
 
 #include "../include/Row.hpp"
 
-namespace Csv
+namespace CsvCpp
 {
 
 	void Row::Add(std::string csvLine)

@@ -2,7 +2,7 @@
 //! @file 			Row.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/03
+//! @last-modified 	2014/04/08
 //! @brief
 //! @details
 //!
@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-namespace Csv
+namespace CsvCpp
 {
 
 	class Row

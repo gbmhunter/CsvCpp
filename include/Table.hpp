@@ -2,7 +2,7 @@
 //! @file 			Table.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/03
+//! @last-modified 	2014/04/08
 //! @brief
 //! @details
 //!
@@ -15,7 +15,7 @@
 
 #include "Row.hpp"
 
-namespace Csv
+namespace CsvCpp
 {
 
 	class Table
@@ -35,9 +35,6 @@ namespace Csv
 
 			//! @brief		Returns the number of rows in the CSV table.
 			uint32_t NumRows();
-
-			//! @brief		Returns the number of columns in the CSV table.
-			uint32_t NumColumns();
 
 		private:
 			//! @brief		Used to internally store the rows in a CSV file.
