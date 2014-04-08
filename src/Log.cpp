@@ -2,8 +2,8 @@
 //! @file				Log.cpp
 //! @author				Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created			2014/04/07
-//! @last-modified		2014/04/08
-//! @brief 				Contains callbacks for port-specific print operations.
+//! @last-modified		2014/04/09
+//! @brief 				Contains logging functionality for debug and error messages.
 //! @details
 //!						See README.rst in repo root dir for more info.
 

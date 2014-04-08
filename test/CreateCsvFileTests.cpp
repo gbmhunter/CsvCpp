@@ -2,7 +2,7 @@
 //! @file 			CreateCsvFileTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/08
-//! @last-modified 	2014/04/08
+//! @last-modified 	2014/04/09
 //! @brief 			Tests the CSV file creation ability of the Parser object.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -22,6 +22,10 @@ namespace CsvCppTest
 
 		TEST(CreateCsvFileTest)
 		{
+			// Connect up error and debug streams
+			CsvCpp::debugMsg.buff = &std::cout;
+			CsvCpp::errorMsg.buff = &std::cout;
+
 			CsvCpp::Parser csvParser;
 			CsvCpp::Table csvTable;
 

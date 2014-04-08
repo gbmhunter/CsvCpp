@@ -2,8 +2,8 @@
 //! @file 			Log.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/07
-//! @last-modified 	2014/04/08
-//! @brief 			Contains callbacks for port-specific print operations.
+//! @last-modified 	2014/04/09
+//! @brief 			Contains logging functionality for debug and error messages.
 //! @details
 //!					See README.rst in root dir for more info.
 
@@ -27,26 +27,35 @@
 namespace CsvCpp
 {
 
-	// An example with a string stream.
 	class Log
 	{
 	   private:
 
 	   public:
 
-		  Log(){}
+		  Log()
+	   	  {
+			  // Make pointer NULL by default to we don't try an access dangling pointer
+			  // if it hasn't been assigned
+			  buff = NULL;
+		  }
+
 		  ~Log()
 		  {
-			 // Add an newline.
-			 *buff << std::endl;
+			 if(buff != NULL)
+				 // Add an newline.
+				 *buff << std::endl;
 		  }
-		  //! @brief		Pointer to an ostream buffer that
+
+		  //! @brief		Pointer to an ostream buffer that serves as an output for logging messages.
+		  //! @details		Defaults to NULL.
 		  std::ostream* buff;
 
 		  template<typename T>
 		  Log &operator << (const T &t)
 		  {
-			 *buff << t;
+			 if(buff != NULL)
+				  *buff << t;
 			 return * this;
 		  }
 	};
