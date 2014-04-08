@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-#include "Row.hpp"
+#include "Record.hpp"
 
 namespace CsvCpp
 {
@@ -22,23 +22,23 @@ namespace CsvCpp
 	{
 		public:
 
-			//! @brief		Overload the [] operator to provide a specific row from the CSV table.
-			Row & operator[](std::size_t index)
+			//! @brief		Overload the [] operator to provide a specific record from the CSV table.
+			Record & operator[](std::size_t index)
 			{
-				return RowV[index];
+				return recordV[index];
 			}
 
-			//! @brief		Adds a row to the bottom of the table. Once rows have been added they can be accessed
+			//! @brief		Adds a CSV record (i.e. a row) to the bottom of the table. Once records have been added they can be accessed
 			//!				with the [] operator.
-			//! @details	Find the total number of rows by calling NumRows().
-			void Add(Row row);
+			//! @details	Find the total number of records by calling NumRecords().
+			void Add(Record record);
 
-			//! @brief		Returns the number of rows in the CSV table.
-			uint32_t NumRows();
+			//! @brief		Returns the number of records in the CSV table.
+			uint32_t NumRecords();
 
 		private:
-			//! @brief		Used to internally store the rows in a CSV file.
-			std::vector<Row> RowV;
+			//! @brief		Used to internally store the records that make up the CSV table.
+			std::vector<Record> recordV;
 
 	};
 }

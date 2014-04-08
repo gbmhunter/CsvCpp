@@ -1,8 +1,8 @@
 //!
-//! @file 			Row.cpp
+//! @file 			Record.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/03
+//! @last-modified 	2014/04/08
 //! @brief
 //! @details
 //!
@@ -10,17 +10,17 @@
 #include <iostream>
 #include <fstream>
 
-#include "../include/Row.hpp"
+#include "../include/Record.hpp"
 
 namespace CsvCpp
 {
 
-	void Row::Add(std::string csvLine)
+	void Record::Add(std::string csvLine)
 	{
 		this->elementV.push_back(csvLine);
 	}
 
-	uint32_t Row::NumElements()
+	uint32_t Record::NumElements()
 	{
 		return this->elementV.size();
 	}

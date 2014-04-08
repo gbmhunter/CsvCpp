@@ -1,5 +1,5 @@
 //!
-//! @file 			Row.hpp
+//! @file 			Record.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
 //! @last-modified 	2014/04/08
@@ -7,8 +7,8 @@
 //! @details
 //!
 
-#ifndef CSV_ROW_H
-#define CSV_ROW_H
+#ifndef CSV_RECORD_H
+#define CSV_RECORD_H
 
 #include <string>
 #include <vector>
@@ -16,7 +16,7 @@
 namespace CsvCpp
 {
 
-	class Row
+	class Record
 	{
 		public:
 
@@ -40,6 +40,6 @@ namespace CsvCpp
 	};
 }
 
-#endif // #ifndef CSV_ROW_H
+#endif // #ifndef CSV_RECORD_H
 
 // EOF

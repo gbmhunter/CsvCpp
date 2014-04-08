@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/04/08
-- Version: v1.1.0.0
+- Version: v1.1.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -35,6 +35,11 @@ Powerful
 --------
 
 You can define what CsvCpp will use as a line delimiter (Parser::lineDelimiter).
+
+Standards Compliant
+-------------------
+
+This CSV parsing library follows the speficiations and terminology of RFC 4180, which is accepted as the de-facto standard for CSV files.
 
 Portable (Platform Agnostic)
 ----------------------------
@@ -131,6 +136,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v1.1.1.0  2014/04/08 Added constructor for Parser class and set lineDelimiter to default to '\r\n'. Added ability for the user to specify the field delimiter, closes #5. Renamed 'elements' to 'fields', and 'rows' to 'records', to follow RFC 4180, closes #6. Added info to README about being standards complant.
 v1.1.0.0  2014/04/08 Added portable logging capability (debug and error messages) with Log.hpp/.cpp. Added ability to specify the line delimiting characters in CsvCpp::Parser, closes #3. Added related unit tests for various types of delimiters. Added unit test for when the last line does not have the line delimiting character. Edited README. Parser no longer causes segmentation fault if last line does not have a line delimitier, closes #1. Unit tests no longer leave left-over test.csv files, closes #2.
 v1.0.0.0  2014/04/07 Initial commit. Parser performs basic CSV file decoding into a CsvTable object. Basic unit test makes sure than the Parser object can read a simple CSV file correctly.
 ========= ========== ===================================================================================================

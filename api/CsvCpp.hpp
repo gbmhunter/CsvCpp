@@ -12,7 +12,7 @@
 
 #include "../include/Log.hpp"
 #include "../include/Parser.hpp"
-#include "../include/Row.hpp"
+#include "../include/Record.hpp"
 
 #endif // #ifndef CSV_CPP_CSV_CPP_H
 

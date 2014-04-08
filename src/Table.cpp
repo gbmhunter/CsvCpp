@@ -11,18 +11,18 @@
 #include <fstream>
 
 #include "../include/Table.hpp"
-#include "../include/Row.hpp"
+#include "../include/Record.hpp"
 
 namespace CsvCpp
 {
-	void Table::Add(Row row)
+	void Table::Add(Record record)
 	{
-		this->RowV.push_back(row);
+		this->recordV.push_back(record);
 	}
 
-	uint32_t Table::NumRows()
+	uint32_t Table::NumRecords()
 	{
-		return this->RowV.size();
+		return this->recordV.size();
 	}
 
 }

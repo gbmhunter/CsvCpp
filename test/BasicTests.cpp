@@ -56,7 +56,7 @@ namespace CsvCppTest
 			// Print out the CSV table for debug info
 			uint32_t x, y;
 
-			for(x = 0; x < csvTable.NumRows(); x++)
+			for(x = 0; x < csvTable.NumRecords(); x++)
 			{
 				for(y = 0; y < csvTable[x].NumElements(); y++)
 				{
@@ -100,7 +100,7 @@ namespace CsvCppTest
 			CHECK_EQUAL("element12", csvTable[0][1]);
 			CHECK_EQUAL("element21", csvTable[1][0]);
 			CHECK_EQUAL("element22", csvTable[1][1]);
-			CHECK_EQUAL(2, csvTable.NumRows());
+			CHECK_EQUAL(2, csvTable.NumRecords());
 
 		}
 
@@ -136,7 +136,7 @@ namespace CsvCppTest
 			CHECK_EQUAL("element12", csvTable[0][1]);
 			CHECK_EQUAL("element21", csvTable[1][0]);
 			CHECK_EQUAL("element22", csvTable[1][1]);
-			CHECK_EQUAL(2, csvTable.NumRows());
+			CHECK_EQUAL(2, csvTable.NumRecords());
 
 		}
 

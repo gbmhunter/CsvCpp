@@ -13,7 +13,7 @@
 #include <string>
 #include <vector>
 
-#include "Row.hpp"
+#include "Record.hpp"
 #include "Table.hpp"
 
 namespace CsvCpp
@@ -23,25 +23,38 @@ namespace CsvCpp
 	{
 		public:
 
+			//! @brief		Constructor.
+			Parser();
+
 			//! @brief		Sets the filename for the CSV file.
 			void SetFilename(std::string filename);
 
-			//! @brief		Read a row from the CSV file
-			Row ReadRow();
+			//! @brief		Read a record from the CSV file
+			Record ReadRecord();
 
 			//! @brief		Read an entire CSV file.
-			//! @details	Calls ReadRow() many times.
+			//! @details	Calls ReadRecord() many times.
 			Table ReadEntireFile();
 
+			//! @brief		Creates a CSV file from the given Table object.
+			//! @param		table		A CsvCpp::Table object to create the CSV file from.
+			//! @param		fileName	The filename of the CSV file to create.
+			void CreateCsvFile(Table csvTable, std::string fileName);
+
 			//! @brief		What the parser will search for in the CSV files as a line delimiter.
-			//! @details	Typically set to \r\n (CRLF) or just \n (LF).
+			//! @details	Typically set to "\r\n" (CRLF) or just "\n" (LF). Defaults to "\r\n".
 			std::string lineDelimiter;
+
+			//! @brief		The character sequence to use as the field delimiter when parsing CSV files.
+			//! @details	Typically set to "," (comma-separated values) or the tab character. Defaults to ",".
+			std::string fieldDelimiter;
 
 		private:
 
 			std::string filename;
 
-			Row ExtractElementsToRow(std::string csvRowString);
+			//! @brief		Converts a line of the CSV file in string format to a Record object.
+			Record RecordStringToRecord(std::string csvRowString);
 
 	};
 

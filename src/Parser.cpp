@@ -16,12 +16,21 @@
 namespace CsvCpp
 {
 
+	Parser::Parser()
+	{
+		// Default delimiter for CSV files
+		this->lineDelimiter = "\r\n";
+
+		// Default field delimiter for CSV files
+		this->fieldDelimiter = ",";
+	}
+
 	void Parser::SetFilename(std::string filename)
 	{
 		this->filename = filename;
 	}
 
-	Row Parser::ReadRow()
+	Record Parser::ReadRecord()
 	{
 		std::ifstream myIfStream(this->filename, std::ifstream::in);
 
@@ -41,7 +50,7 @@ namespace CsvCpp
 		debugMsg << "csvLine = " << csvLine << "\r\n";
 
 		// Return a single row from the CSV file
-		return this->ExtractElementsToRow(csvLine);
+		return this->RecordStringToRecord(csvLine);
 
 	}
 
@@ -104,7 +113,7 @@ namespace CsvCpp
 			}
 
 			// Return a single row from the CSV file
-			csvTable.Add(this->ExtractElementsToRow(csvLine));
+			csvTable.Add(this->RecordStringToRecord(csvLine));
 
 		}
 
@@ -144,25 +153,46 @@ namespace CsvCpp
 		return csvTable;
 	}
 
-	Row Parser::ExtractElementsToRow(std::string csvLine)
+	void Parser::CreateCsvFile(Table csvTable, std::string fileName)
 	{
-		int lastPosOfFieldSeperator = 0;
-		Row csvRow;
+		// Create output stream to file
+		std::ofstream outputFile(fileName);
+
+		// Iterate through the CSV table
+		uint32_t x, y;
+
+		for(x = 0; x < csvTable.NumRecords(); x++)
+		{
+			for(y = 0; y < csvTable[x].NumElements(); y++)
+			{
+				//std::cout << "csvTable[" << x << "][" << y << "] = " << csvTable[x][y] << std::endl;
+				//outputFile << csvTable[x][y] <<
+			}
+		}
+
+		// Close the output file
+		outputFile.close();
+	}
+
+	Record Parser::RecordStringToRecord(std::string csvLine)
+	{
+		int lastPosOfFieldDelimiter = 0;
+		Record csvRecord;
 		while(1)
 		{
-			// Find the next occurrence of the delimiter
-			int nextPosOfFieldSeperator = csvLine.find(',', lastPosOfFieldSeperator + 1);
+			// Find the next occurrence of the field delimiter
+			int nextPosOfFieldDelimiter = csvLine.find(this->fieldDelimiter, lastPosOfFieldDelimiter + 1);
 
 			int x = 0;
-			std::string element;
+			std::string field;
 
 			// Check to see if delimiter was found
-			if(nextPosOfFieldSeperator == (int)std::string::npos)
+			if(nextPosOfFieldDelimiter == (int)std::string::npos)
 			{
 				// Delimiter was not found
-				for(x = lastPosOfFieldSeperator + 1; x < (int)csvLine.length(); x++)
+				for(x = lastPosOfFieldDelimiter + 1; x < (int)csvLine.length(); x++)
 				{
-					element += csvLine[x];
+					field += csvLine[x];
 				}
 			}
 			else
@@ -170,35 +200,35 @@ namespace CsvCpp
 				// Next delimiter in row was found
 
 				// Check to see wether we are at the first element or not
-				if(lastPosOfFieldSeperator == 0)
+				if(lastPosOfFieldDelimiter == 0)
 				{
-					for(x = lastPosOfFieldSeperator; x < nextPosOfFieldSeperator; x++)
+					for(x = lastPosOfFieldDelimiter; x < nextPosOfFieldDelimiter; x++)
 					{
-						element += csvLine[x];
+						field += csvLine[x];
 					}
 				}
 				else
 				{
-					for(x = lastPosOfFieldSeperator + 1; x < nextPosOfFieldSeperator; x++)
+					for(x = lastPosOfFieldDelimiter + 1; x < nextPosOfFieldDelimiter; x++)
 					{
-						element += csvLine[x];
+						field += csvLine[x];
 					}
 				}
 			}
 
-			csvRow.Add(element);
-			debugMsg << "element = " << element << "\r\n";
+			csvRecord.Add(field);
+			debugMsg << "field = " << field << "\r\n";
 
-			if(nextPosOfFieldSeperator == (int)std::string::npos)
+			if(nextPosOfFieldDelimiter == (int)std::string::npos)
 			{
-				debugMsg << "End of line reached.\r\n";
+				debugMsg << "End of record reached.\r\n";
 				break;
 			}
 
-			lastPosOfFieldSeperator = nextPosOfFieldSeperator;
+			lastPosOfFieldDelimiter = nextPosOfFieldDelimiter;
 		}
 
-		return csvRow;
+		return csvRecord;
 	}
 
 }
