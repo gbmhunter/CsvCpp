@@ -15,7 +15,7 @@
 
 namespace CsvCpp
 {
-	void Table::Add(Record record)
+	void Table::AddRecord(Record record)
 	{
 		this->recordV.push_back(record);
 	}

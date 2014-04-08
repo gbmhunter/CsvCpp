@@ -15,14 +15,14 @@
 namespace CsvCpp
 {
 
-	void Record::Add(std::string csvLine)
+	void Record::AddField(std::string field)
 	{
-		this->elementV.push_back(csvLine);
+		this->fieldV.push_back(field);
 	}
 
-	uint32_t Record::NumElements()
+	uint32_t Record::NumFields()
 	{
-		return this->elementV.size();
+		return this->fieldV.size();
 	}
 
 }

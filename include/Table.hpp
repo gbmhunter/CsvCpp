@@ -31,7 +31,7 @@ namespace CsvCpp
 			//! @brief		Adds a CSV record (i.e. a row) to the bottom of the table. Once records have been added they can be accessed
 			//!				with the [] operator.
 			//! @details	Find the total number of records by calling NumRecords().
-			void Add(Record record);
+			void AddRecord(Record record);
 
 			//! @brief		Returns the number of records in the CSV table.
 			uint32_t NumRecords();

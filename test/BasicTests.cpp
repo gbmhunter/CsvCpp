@@ -33,7 +33,7 @@ namespace CsvCppTest
 
 			CsvCpp::Parser csvParser;
 			csvParser.SetFilename("test/test.csv");
-			csvParser.lineDelimiter = "\n";
+			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
 			CsvCpp::Table csvTable;
@@ -58,7 +58,7 @@ namespace CsvCppTest
 
 			for(x = 0; x < csvTable.NumRecords(); x++)
 			{
-				for(y = 0; y < csvTable[x].NumElements(); y++)
+				for(y = 0; y < csvTable[x].NumFields(); y++)
 				{
 					std::cout << "csvTable[" << x << "][" << y << "] = " << csvTable[x][y] << std::endl;
 
@@ -81,7 +81,7 @@ namespace CsvCppTest
 
 			CsvCpp::Parser csvParser;
 			csvParser.SetFilename("test/test.csv");
-			csvParser.lineDelimiter = "\n";
+			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
 			CsvCpp::Table csvTable;
@@ -117,7 +117,7 @@ namespace CsvCppTest
 
 			CsvCpp::Parser csvParser;
 			csvParser.SetFilename("test/test.csv");
-			csvParser.lineDelimiter = "\r\n";
+			csvParser.recordDelimiter = "\r\n";
 
 			// Read back the entire file, file not exist, so within try/catch
 			CsvCpp::Table csvTable;

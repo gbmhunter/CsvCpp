@@ -41,9 +41,9 @@ namespace CsvCpp
 			//! @param		fileName	The filename of the CSV file to create.
 			void CreateCsvFile(Table csvTable, std::string fileName);
 
-			//! @brief		What the parser will search for in the CSV files as a line delimiter.
+			//! @brief		What the parser will search for in the CSV files as a record delimiter.
 			//! @details	Typically set to "\r\n" (CRLF) or just "\n" (LF). Defaults to "\r\n".
-			std::string lineDelimiter;
+			std::string recordDelimiter;
 
 			//! @brief		The character sequence to use as the field delimiter when parsing CSV files.
 			//! @details	Typically set to "," (comma-separated values) or the tab character. Defaults to ",".
