@@ -1,8 +1,8 @@
 //!
 //! @file 			Parser.cpp
-//! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
+//! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/04/08
+//! @last-modified 	2014/04/09
 //! @brief
 //! @details
 //!
@@ -35,7 +35,7 @@ namespace CsvCpp
 		std::ifstream myIfStream(this->filename, std::ifstream::in);
 
 		if ( (myIfStream.rdstate() & std::ifstream::failbit ) != 0 )
-			errorMsg << "Error opening 'test.csv'\n";
+			errorMsg << "Error opening 'test.csv'." << std::endl;
 
 		std::string csvLine;
 
@@ -45,9 +45,9 @@ namespace CsvCpp
 		std::istreambuf_iterator<char> eos;
 		std::string theEntireFile(std::istreambuf_iterator<char>(myIfStream), eos);
 
-		debugMsg << "The entire file:" << theEntireFile.c_str() << "\r\n";
+		debugMsg << "The entire file:" << theEntireFile.c_str() << std::endl;
 
-		debugMsg << "csvLine = " << csvLine << "\r\n";
+		debugMsg << "csvLine = " << csvLine << std::endl;
 
 		// Return a single row from the CSV file
 		return this->RecordStringToRecord(csvLine);
@@ -62,7 +62,7 @@ namespace CsvCpp
 
 		if ( (myIfStream.rdstate() & std::ifstream::failbit ) != 0 )
 		{
-			errorMsg << "Error opening '" << this->filename << "'\n";
+			errorMsg << "Error opening '" << this->filename << "'" << std::endl;
 			throw "Couldn't open file.\r\n";
 		}
 
@@ -74,9 +74,9 @@ namespace CsvCpp
 		// Stream has been read, so we can now close
 		myIfStream.close();
 
-		debugMsg << "The entire file:" << theEntireFile << "\r\n";
+		debugMsg << "The entire file:" << theEntireFile << std::endl;
 
-		std::size_t found = theEntireFile.find("\r\n");
+		std::size_t found;
 
 		while(1)
 		{
@@ -91,27 +91,27 @@ namespace CsvCpp
 			{
 				// Terminating character not found, so read entire string
 				// (must be last line)
-				debugMsg << "Line delimiter not found, must be last line." << "\r\n";
+				debugMsg << "Line delimiter not found, must be last line." << std::endl;
 				csvLine = theEntireFile.substr(0, theEntireFile.size());
 				// Removes line from the stream
 				theEntireFile.erase(0, theEntireFile.size());
 			}
 			else
 			{
-				debugMsg << "Line delimiter found at '" << found << "'." << "\r\n";
+				debugMsg << "Line delimiter found at '" << found << "'." << std::endl;
 				csvLine = theEntireFile.substr(0, (unsigned long int)found);
 				// Removes line from the stream (including the line delimiters)
 				theEntireFile.erase(0, found + this->recordDelimiter.size());
 			}
 
-			debugMsg << "csvLine = " << csvLine << "\r\n";
-			debugMsg << "csvLine size() = " << csvLine.size() << "\r\n";
+			debugMsg << "csvLine = " << csvLine << std::endl;
+			debugMsg << "csvLine size() = " << csvLine.size() << std::endl;
 
 			// This stops ExtractElementsToRow from running if the last valid
 			// row has a new line character at the end
 			if (csvLine.empty())
 			{
-				std::cerr << "csvLine empty.\r\n";
+				std::cerr << "csvLine empty." << std::endl;
 				break;
 			}
 
@@ -125,8 +125,8 @@ namespace CsvCpp
 
 	void Parser::CreateCsvFile(Table csvTable, std::string fileName)
 	{
-		debugMsg << "Creating CSV file.\r\n";
-		debugMsg << "Num. records = " << csvTable.NumRecords() << ".\r\n";
+		debugMsg << "Creating CSV file." << std::endl;
+		debugMsg << "Num. records = " << csvTable.NumRecords() << "." << std::endl;
 
 		// Create output stream to file
 		std::ofstream outputFile(fileName);
@@ -136,10 +136,10 @@ namespace CsvCpp
 
 		for(x = 0; x < csvTable.NumRecords(); x++)
 		{
-			debugMsg << "Num. fields = " << csvTable[x].NumFields() << ".\r\n";
+			debugMsg << "Num. fields = " << csvTable[x].NumFields() << "." << std::endl;
 			for(y = 0; y < csvTable[x].NumFields(); y++)
 			{
-				debugMsg << "Writing '" << csvTable[x][y] << "' to file.\r\n";
+				debugMsg << "Writing '" << csvTable[x][y] << "' to file." << std::endl;
 				outputFile << csvTable[x][y];
 
 				// Add a field delimiter as long as this IS NOT
@@ -150,7 +150,7 @@ namespace CsvCpp
 			}
 			// Record delimiter is added to the end of every record,
 			// including the last record in the file.
-			debugMsg << "Writing record delimiter.\r\n";
+			debugMsg << "Writing record delimiter." << std::endl;
 			outputFile << this->recordDelimiter;
 		}
 
@@ -201,11 +201,11 @@ namespace CsvCpp
 			}
 
 			csvRecord.AddField(field);
-			debugMsg << "field = " << field << "\r\n";
+			debugMsg << "field = " << field << std::endl;
 
 			if(nextPosOfFieldDelimiter == (int)std::string::npos)
 			{
-				debugMsg << "End of record reached.\r\n";
+				debugMsg << "End of record reached." << std::endl;
 				break;
 			}
 

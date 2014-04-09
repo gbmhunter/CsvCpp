@@ -58,6 +58,14 @@ namespace CsvCpp
 				  *buff << t;
 			 return * this;
 		  }
+
+		  //! @brief		Special case overload so we can use std::endl.
+		  Log& operator<<(std::ostream& (*f)(std::ostream&))
+		  {
+			  if(buff != NULL)
+				  *buff << f;
+			  return *this;
+		  }
 	};
 
 	extern Log debugMsg;

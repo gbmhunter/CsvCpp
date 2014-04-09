@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/04/09
-- Version: v2.0.1.0
+- Version: v2.0.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -135,6 +135,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.0.2.0  2014/04/09 Added ability to use std::endl with Log objects (i.e. debugMsg and errorMsg), closes #10.
 v2.0.1.0  2014/04/09 Added safe guard if output logging stream pointers in the Log class are null, closes #9. Add relevant unit test. Removed slotmachine-cpp from the list of dependencies in README, closes #8.
 v2.0.0.0  2014/04/08 Added ability to create a CSV file from a CsvCpp::Table object, closes #4. Added relevant unit test.
 v1.1.1.0  2014/04/08 Added constructor for Parser class and set lineDelimiter to default to '\r\n'. Added ability for the user to specify the field delimiter, closes #5. Renamed 'elements' to 'fields', and 'rows' to 'records', to follow RFC 4180, closes #6. Added info to README about being standards complant.
