@@ -2,7 +2,7 @@
 //! @file 			Table.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/08
+//! @last-modified 	2014/04/10
 //! @brief
 //! @details
 //!
@@ -35,6 +35,9 @@ namespace CsvCpp
 
 			//! @brief		Returns the number of records in the CSV table.
 			uint32_t NumRecords();
+
+			//! @brief		Deletes all records that belong to this table.
+			void Clear();
 
 		private:
 			//! @brief		Used to internally store the records that make up the CSV table.
