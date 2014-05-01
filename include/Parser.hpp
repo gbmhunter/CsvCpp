@@ -23,7 +23,15 @@ namespace CsvCpp
 	{
 		public:
 
-			//! @brief		Constructor.
+			//! @brief		Base constructor.
+			//! @note		Overloaded (this is the base function that others call).
+			//! @param		fieldDelimiter	The delimiter that is used to separate fields in a record (e.g. ","). Can be more than one character.
+			//! @param		recordDelimiter	The delimiter that is used to separate records in a CSV file (e.g. "\r\n"). Can be more than one character.
+			Parser(std::string fieldDelimiter, std::string recordDelimiter);
+
+			//! @brief		Simplified constructor.
+			//! @details	Provides default settings for the record delimiter and field delimiter.
+			//! @note 		Overloaded.
 			Parser();
 
 			//! @brief		Sets the filename for the CSV file.
@@ -52,14 +60,22 @@ namespace CsvCpp
 			void CreateCsvFile(Table csvTable);
 
 			//! @brief		What the parser will search for in the CSV files as a record delimiter.
-			//! @details	Typically set to "\r\n" (CRLF) or just "\n" (LF). Defaults to "\r\n".
+			//! @details	Typically set to "\r\n" (CRLF) or just "\n" (LF).
+			//! @note		Defaults to "\r\n" (set in Config.hpp).
 			std::string recordDelimiter;
 
 			//! @brief		The character sequence to use as the field delimiter when parsing CSV files.
-			//! @details	Typically set to "," (comma-separated values) or the tab character. Defaults to ",".
+			//! @details	Typically set to "," (comma-separated values) or the tab character.
+			//! @note		Defaults to "," (set in Config.hpp).
 			std::string fieldDelimiter;
 
 		private:
+
+			//! @brief		Contains shared code that is common to all constructors. Called by
+			//!				every constructor.
+			//! @param		fieldDelimiter	The delimiter that is used to separate fields in a record.
+			//! @param		recordDelimiter	The delimiter that is used to separate records in a CSV file.
+			void SharedConstructorCode(std::string fieldDelimiter, std::string recordDelimiter);
 
 			//! @brief		Holds the filename of the file that the parser will operate on if functions like
 			//!				ReadEntireFile() or ReadRecord() are called.

@@ -12,17 +12,31 @@
 
 #include "../include/Parser.hpp"
 #include "../include/Log.hpp"
+#include "../include/Config.hpp"
 
 namespace CsvCpp
 {
 
+	Parser::Parser(std::string fieldDelimiter, std::string recordDelimiter)
+	{
+		// Call shared code
+		this->SharedConstructorCode(fieldDelimiter, recordDelimiter);
+	}
+
 	Parser::Parser()
 	{
+		// Call shared code, passing in defaults
+		this->SharedConstructorCode(config_DEFAULT_FIELD_DELIMITER, config_DEFAULT_RECORD_DELIMITER);
+	}
+
+	void Parser::SharedConstructorCode(std::string fieldDelimiter, std::string recordDelimiter)
+	{
+
 		// Default delimiter for CSV files
-		this->recordDelimiter = "\r\n";
+		this->recordDelimiter = recordDelimiter;
 
 		// Default field delimiter for CSV files
-		this->fieldDelimiter = ",";
+		this->fieldDelimiter = fieldDelimiter;
 	}
 
 	void Parser::SetFilename(std::string filename)
