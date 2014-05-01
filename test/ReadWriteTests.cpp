@@ -65,7 +65,6 @@ namespace CsvCppTest
 				}
 			}
 
-
 		}
 		
 		TEST(LfAtEndOfFileReadWriteTest)

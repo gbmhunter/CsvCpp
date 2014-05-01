@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/05/01
-- Version: v2.0.4.0
+- Version: v2.0.5.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -135,6 +135,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.0.5.0  2014/05/01 Provided overload of 'Parser::CreateCsvFile()' which uses 'Parser::filename' instead of passing the filename in, and added relevant unit tests, closes #14.
 v2.0.4.0  2014/05/01 Provided overload function 'Parser::SetFilename(std::string filename)' which uses given filename rather than the one stored in the 'Parser::filename' variable, and created relevant unit tests, closes #12. Renamed 'BasicTests.cpp' to 'ReadWriteTests.cpp', closes #13.
 v2.0.3.0  2014/04/10 Added the ability to clear all records from a table through Table::Clear(), closes #7.
 v2.0.2.0  2014/04/09 Added ability to use std::endl with Log objects (i.e. debugMsg and errorMsg), closes #10.

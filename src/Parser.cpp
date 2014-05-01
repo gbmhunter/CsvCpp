@@ -133,6 +133,8 @@ namespace CsvCpp
 
 	void Parser::CreateCsvFile(Table csvTable, std::string fileName)
 	{
+		// Note: This function is overloaded.
+
 		debugMsg << "Creating CSV file." << std::endl;
 		debugMsg << "Num. records = " << csvTable.NumRecords() << "." << std::endl;
 
@@ -164,6 +166,12 @@ namespace CsvCpp
 
 		// Close the output file
 		outputFile.close();
+	}
+
+	void Parser::CreateCsvFile(Table csvTable)
+	{
+		// Call the base function, providing the filename
+		this->CreateCsvFile(csvTable, this->filename);
 	}
 
 	Record Parser::RecordStringToRecord(std::string csvLine)
