@@ -2,8 +2,8 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/08
-//! @brief
+//! @last-modified 	2014/05/01
+//! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
 
@@ -32,9 +32,13 @@ namespace CsvCpp
 			//! @brief		Read a record from the CSV file
 			Record ReadRecord();
 
-			//! @brief		Read an entire CSV file.
+			//! @brief		Read an entire CSV file. Simplified overload, uses filename set with SetFilename().
 			//! @details	Calls ReadRecord() many times.
 			Table ReadEntireFile();
+
+			//! @brief		Read an entire CSV file, using provided file name. Base overload.
+			//! @details	Calls ReadRecord() many times.
+			Table ReadEntireFile(std::string fileName);
 
 			//! @brief		Creates a CSV file from the given Table object.
 			//! @param		table		A CsvCpp::Table object to create the CSV file from.

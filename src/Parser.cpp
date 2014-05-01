@@ -2,8 +2,8 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/04/09
-//! @brief
+//! @last-modified 	2014/05/01
+//! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
 
@@ -54,15 +54,15 @@ namespace CsvCpp
 
 	}
 
-	Table Parser::ReadEntireFile()
+	Table Parser::ReadEntireFile(std::string fileName)
 	{
 		Table csvTable;
 
-		std::ifstream myIfStream(this->filename, std::ifstream::in);
+		std::ifstream myIfStream(fileName, std::ifstream::in);
 
 		if ( (myIfStream.rdstate() & std::ifstream::failbit ) != 0 )
 		{
-			errorMsg << "Error opening '" << this->filename << "'" << std::endl;
+			errorMsg << "Error opening '" << fileName << "'" << std::endl;
 			throw "Couldn't open file.\r\n";
 		}
 
@@ -76,7 +76,7 @@ namespace CsvCpp
 
 		debugMsg << "The entire file:" << theEntireFile << std::endl;
 
-		std::size_t found;
+		//std::size_t found;
 
 		while(1)
 		{
@@ -121,6 +121,14 @@ namespace CsvCpp
 		}
 
 		return csvTable;
+
+	}
+
+	Table Parser::ReadEntireFile()
+	{
+		// Call base function with file being the one stored
+		// in the variable "filename" (set with SetFilename()).
+		return this->ReadEntireFile(this->filename);
 	}
 
 	void Parser::CreateCsvFile(Table csvTable, std::string fileName)

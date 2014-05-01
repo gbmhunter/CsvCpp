@@ -1,8 +1,8 @@
 //!
-//! @file 			BasicTests.cpp
+//! @file 			ReadWriteTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/07
-//! @last-modified 	2014/04/08
+//! @last-modified 	2014/05/01
 //! @brief 			Contains basic tests.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -17,17 +17,17 @@
 
 namespace CsvCppTest
 {
-	SUITE(BasicTests)
+	SUITE(ReadWriteTests)
 	{
 
-		TEST(BasicTest)
+		TEST(BasicReadWriteTest)
 		{
 			// Connect up error and debug streams
 			CsvCpp::debugMsg.buff = &std::cout;
 			CsvCpp::errorMsg.buff = &std::cout;
 
 			std::ofstream myfile;
-			myfile.open ("test/test.csv");
+			myfile.open("test/test.csv");
 			myfile << "element11,element12\nelement21,element22";
 			myfile.close();
 
@@ -68,7 +68,7 @@ namespace CsvCppTest
 
 		}
 		
-		TEST(LfAtEndOfFileTest)
+		TEST(LfAtEndOfFileReadWriteTest)
 		{
 			// Connect up error and debug streams
 			CsvCpp::debugMsg.buff = &std::cout;
@@ -104,7 +104,7 @@ namespace CsvCppTest
 
 		}
 
-		TEST(CrLfAtEndOfRowsTest)
+		TEST(CrLfAtEndOfRowsReadWriteTest)
 		{
 			// Connect up error and debug streams
 			CsvCpp::debugMsg.buff = &std::cout;
@@ -140,5 +140,5 @@ namespace CsvCppTest
 
 		}
 
-	} // SUITE(BasicTests)
+	} // SUITE(ReadWriteTests)
 } // namespace CsvCppTest

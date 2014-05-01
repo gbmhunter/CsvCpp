@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/04/10
-- Version: v2.0.3.0
+- Last Modified: 2014/05/01
+- Version: v2.0.4.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -135,6 +135,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.0.4.0  2014/05/01 Provided overload function 'Parser::SetFilename(std::string filename)' which uses given filename rather than the one stored in the 'Parser::filename' variable, and created relevant unit tests, closes #12. Renamed 'BasicTests.cpp' to 'ReadWriteTests.cpp', closes #13.
 v2.0.3.0  2014/04/10 Added the ability to clear all records from a table through Table::Clear(), closes #7.
 v2.0.2.0  2014/04/09 Added ability to use std::endl with Log objects (i.e. debugMsg and errorMsg), closes #10.
 v2.0.1.0  2014/04/09 Added safe guard if output logging stream pointers in the Log class are null, closes #9. Add relevant unit test. Removed slotmachine-cpp from the list of dependencies in README, closes #8.
