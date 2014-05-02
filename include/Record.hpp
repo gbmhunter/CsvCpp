@@ -2,7 +2,7 @@
 //! @file 			Record.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/04/08
+//! @last-modified 	2014/05/02
 //! @brief
 //! @details
 //!
@@ -10,8 +10,10 @@
 #ifndef CSV_RECORD_H
 #define CSV_RECORD_H
 
+// System includes
 #include <string>
 #include <vector>
+#include <cstdint>
 
 namespace CsvCpp
 {

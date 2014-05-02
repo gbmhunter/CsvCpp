@@ -2,53 +2,26 @@
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/07
-//! @last-modified 	2014/04/07
+//! @last-modified 	2014/05/02
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
 
+// System includes
 #include <iostream>
 
-#include "../api/CsvCpp.hpp"
-
+// User libraries
 #include "../lib/UnitTest++/src/UnitTest++.h"
 #include "../lib/UnitTest++/src/TestReporterStdout.h"
 
-class Printer
-{
-	public:
-		void PrintDebug(const char* msg)
-		{
-			std::cout << msg;
-		}
-
-		void PrintCmdLine(const char* msg)
-		{
-			std::cout << msg;
-		}
-
-		void PrintError(const char* msg)
-		{
-			std::cout << msg;
-		}
-};
+// User source
+#include "../api/CsvCpp.hpp"
 
 int main()
 {
 
-	Printer printer;
-
-	/*
-	// Set up printing
-	Clide::Print::AssignCallbacks(
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintDebug),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintCmdLine),
-			SlotMachine::CallbackGen<Printer, void, const char*>(&printer, &Printer::PrintError));
-
-	Clide::Print::enableCmdLinePrinting = false;
-	Clide::Print::enableErrorPrinting = false;
-	Clide::Print::enableDebugInfoPrinting = false;*/
-
+	// Run all tests. Comment this out and run code below if you only
+	// want to run particular tests
 	return UnitTest::RunAllTests();
 	
 	try
@@ -59,7 +32,7 @@ int main()
 	
 		return runner.RunTestsIf(
 			UnitTest::Test::GetTestList(),
-			"ParamTests",
+			"ParserGetStatusTests",			// Enter a test suite name here to only run those tests
 			UnitTest::True(),
 			0);
     }

@@ -9,36 +9,39 @@
 #					See README in repo root dir for more info.
 
 # Define the compiler to use (e.g. gcc, g++)
-CC = g++
+#CC = g++
 
 # Define any compile-time flags (e.g. -Wall, -g)
-CFLAGS = -Wall -g -std=c++0x
+#CFLAGS = -Wall -g -std=c++0x
 
 # Define any directories containing header files other than /usr/include.
 # Prefix every directory with "-I" e.g. "-I./src/include"
-INCLUDES = -I./src/include
+#INCLUDES = -I./src/include
 
 # Define library paths in addition to /usr/lib
 # if I wanted to include libraries not in /usr/lib I'd specify
 # their path using -Lpath, something like:
-LFLAGS = -L./lib/UnitTest++
+#LFLAGS = -L./lib/UnitTest++
 
 # Define any libraries to link into executable:
 #   if I want to link in libraries (libx.so or libx.a) I use the -llibname 
 #   option, something like (this will link in libmylib.so and libm.so:
-LIBS = -lUnitTest++
+#LIBS = -lUnitTest++
 
+SRC_CC := g++
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := 
-SRC_CC_FLAGS := -Wall -g
+SRC_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
 
+TEST_CC := g++
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
-TEST_CC_FLAGS := -Wall -g
+TEST_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
 
+EXAMPLE_CC := g++
 EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
-EXAMPLE_CC_FLAGS := -Wall -g -std=c++0x
+EXAMPLE_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
 
 .PHONY: depend clean
 
@@ -57,7 +60,7 @@ csvCppLib : $(SRC_OBJ_FILES)
 # Generic rule for src object files
 src/%.o: src/%.cpp
 	# Compiling src/ files
-	$(COMPILE.c) -MD -o $@ $<
+	$(SRC_CC) $(SRC_CC_FLAGS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -75,8 +78,8 @@ test : $(TEST_OBJ_FILES) | csvCppLib unitTestLib
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
-	# Compiling src/ files
-	$(COMPILE.c) -MD -o $@ $<
+	# Compiling test/ files
+	$(TEST_CC) $(TEST_CC_FLAGS) -MD -o $@ $<
 	-@cp $*.d $*.P >/dev/null 2>&1; \
 	sed -e 's/#.*//' -e 's/^[^:]*: *//' -e 's/ *\\$$//' \
 		-e '/^$$/ d' -e 's/$$/ :/' < $*.d >> $*.P; \
@@ -97,7 +100,7 @@ example : $(EXAMPLE_OBJ_FILES) csvCppLib
 	
 # Generic rule for test object files
 example/%.o: example/%.cpp
-	g++ $(EXAMPLE_CC_FLAGS) -c -o $@ $<
+	$(EXAMPLE_CC) $(EXAMPLE_CC_FLAGS) -c -o $@ $<
 	
 # ====== CLEANING ======
 	

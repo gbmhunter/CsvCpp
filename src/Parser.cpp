@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/01
+//! @last-modified 	2014/05/02
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -10,6 +10,10 @@
 #include <iostream>
 #include <fstream>
 
+// User libraries
+
+
+// User source
 #include "../include/Parser.hpp"
 #include "../include/Log.hpp"
 #include "../include/Config.hpp"
@@ -243,6 +247,76 @@ namespace CsvCpp
 		}
 
 		return csvRecord;
+	}
+
+	Parser::Status Parser::GetStatus(Table* csvTable)
+	{
+		debugMsg << "Entered Parser::GetStatus()." << std::endl;
+		// Create a status object, which we will fill in with information.
+		Parser::Status status;
+
+		// Set status.isWellformed to true, then any test may set to false if
+		// relevant
+		status.isWellformed.reset(true);
+
+
+		//========== ALL RECORDS HAVE EQUAL NUMBER OF FIELDS TEST =========//
+
+		uint32_t prevNumFields = (*csvTable)[0].NumFields();
+
+		// Iterate through all records, except first ([0]), since
+		// we read that above.
+		uint32_t x;
+		for(x = 1; x < (*csvTable).NumRecords(); x++)
+		{
+			debugMsg << "prevNumFields = '" << prevNumFields << "'." << std::endl;
+			debugMsg << "numFields = '" << (*csvTable)[x].NumFields() << "'." << std::endl;
+			if((*csvTable)[x].NumFields() != prevNumFields)
+			{
+				// Unequal number of fields detected!
+				status.allRecordsHaveEqualNumFields.reset(false);
+				// This is NOT a wellformed CSV table!
+				status.isWellformed.reset(false);
+				debugMsg << "All records do not have an equal number of fields." << std::endl;
+				// We have discovered a record which doesn't have the same number
+				// of fields as the previous one, so no need to continue searching through table
+				break;
+			}
+			prevNumFields = (*csvTable)[x].NumFields();
+		}
+
+		// Now set to result to true, if it hasn't already been set to false
+		if(!status.allRecordsHaveEqualNumFields)
+		{
+			status.allRecordsHaveEqualNumFields.reset(true);
+			debugMsg << "All records have an equal number of fields." << std::endl;
+		}
+
+		//============= POPULATING NUM RECORDS AND NUM FIELD VARIABLES =============//
+
+		// Get the number of records.
+		status.numRecords.reset(csvTable->NumRecords());
+
+		// Check to see if there were no records
+		if(*status.numRecords == 0)
+		{
+			// This is NOT a wellformed CSV table!
+			status.isWellformed.reset(false);
+		}
+
+		if(*(status.allRecordsHaveEqualNumFields))
+		{
+			// Since all records have the same number of fields, we can use any record
+			// to find the number of fields.
+			status.numFields = (*csvTable)[0].NumFields();
+		}
+
+		//======================== FINISHED =========================//
+
+		debugMsg << "Exiting Parser::GetStatus()..." << std::endl;
+
+		// All tests complete, return the status
+		return status;
 	}
 
 }
