@@ -90,11 +90,13 @@ namespace CsvCpp
 
 			//! @brief		Read an entire CSV file. Simplified overload, uses filename set with SetFilename().
 			//! @details	Calls ReadRecord() many times.
+			//! @throws		{const char*} If it can't open the file.
 			CsvTable ReadEntireFile();
 
 			//! @brief		Read an entire CSV file, using provided file name. Base overload.
 			//! @details	Calls ReadRecord() many times.
 			//! @param		filename		The filename you want to read from. Bypasses this->filename.
+			//! @throws		{const char*} If it can't open the file.
 			CsvTable ReadEntireFile(std::string filename);
 
 			//! @brief		Creates a CSV file from the given Table object, and the provided filename.

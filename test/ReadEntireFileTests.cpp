@@ -69,7 +69,7 @@ namespace CsvCppTest
 				}
 			}
 		}
-		
+
 		TEST(FilenameProvidedToFunctionTest)
 		{
 			// Connect up error and debug streams

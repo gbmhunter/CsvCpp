@@ -260,34 +260,37 @@ namespace CsvCpp
 
 		//========== ALL RECORDS HAVE EQUAL NUMBER OF FIELDS TEST =========//
 
-		uint32_t prevNumFields = (*csvTable)[0].NumFields();
-
-		// Iterate through all records, except first ([0]), since
-		// we read that above.
-		uint32_t x;
-		for(x = 1; x < (*csvTable).NumRecords(); x++)
+		// Check if the table has records (a blank table would cause an exception to be thrown)
+		if(csvTable->NumRecords() > 0)
 		{
-			debugMsg << "prevNumFields = '" << prevNumFields << "'." << std::endl;
-			debugMsg << "numFields = '" << (*csvTable)[x].NumFields() << "'." << std::endl;
-			if((*csvTable)[x].NumFields() != prevNumFields)
+			uint32_t prevNumFields = (*csvTable)[0].NumFields();
+			// Iterate through all records, except first ([0]), since
+			// we read that above.
+			uint32_t x;
+			for(x = 1; x < (*csvTable).NumRecords(); x++)
 			{
-				// Unequal number of fields detected!
-				status.allRecordsHaveEqualNumFields.reset(false);
-				// This is NOT a wellformed CSV table!
-				status.isWellformed.reset(false);
-				debugMsg << "All records do not have an equal number of fields." << std::endl;
-				// We have discovered a record which doesn't have the same number
-				// of fields as the previous one, so no need to continue searching through table
-				break;
+				debugMsg << "prevNumFields = '" << prevNumFields << "'." << std::endl;
+				debugMsg << "numFields = '" << (*csvTable)[x].NumFields() << "'." << std::endl;
+				if((*csvTable)[x].NumFields() != prevNumFields)
+				{
+					// Unequal number of fields detected!
+					status.allRecordsHaveEqualNumFields.reset(false);
+					// This is NOT a wellformed CSV table!
+					status.isWellformed.reset(false);
+					debugMsg << "All records do not have an equal number of fields." << std::endl;
+					// We have discovered a record which doesn't have the same number
+					// of fields as the previous one, so no need to continue searching through table
+					break;
+				}
+				prevNumFields = (*csvTable)[x].NumFields();
 			}
-			prevNumFields = (*csvTable)[x].NumFields();
-		}
 
-		// Now set to result to true, if it hasn't already been set to false
-		if(!status.allRecordsHaveEqualNumFields)
-		{
-			status.allRecordsHaveEqualNumFields.reset(true);
-			debugMsg << "All records have an equal number of fields." << std::endl;
+			// Now set to result to true, if it hasn't already been set to false
+			if(!status.allRecordsHaveEqualNumFields)
+			{
+				status.allRecordsHaveEqualNumFields.reset(true);
+				debugMsg << "All records have an equal number of fields." << std::endl;
+			}
 		}
 
 		//============= POPULATING NUM RECORDS AND NUM FIELD VARIABLES =============//
@@ -302,11 +305,15 @@ namespace CsvCpp
 			status.isWellformed.reset(false);
 		}
 
-		if(*(status.allRecordsHaveEqualNumFields))
+		// Make sure it is valid before trying to access it
+		if(status.allRecordsHaveEqualNumFields)
 		{
-			// Since all records have the same number of fields, we can use any record
-			// to find the number of fields.
-			status.numFields = (*csvTable)[0].NumFields();
+			if(*(status.allRecordsHaveEqualNumFields))
+			{
+				// Since all records have the same number of fields, we can use any record
+				// to find the number of fields.
+				status.numFields.reset((*csvTable)[0].NumFields());
+			}
 		}
 
 		//======================== FINISHED =========================//

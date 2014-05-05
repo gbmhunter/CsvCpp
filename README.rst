@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/05/05
-- Version: v2.1.4.0
+- Version: v2.1.5.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -136,6 +136,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.1.5.0  2014/05/05 Fixed bug where 'Parser::GetStatus()' would crash if an empty CsvTable object was passed to it, closes #29. Added unit test to make sure 'Parser::GetStatus()' returns 'isWellformed == false' if no records are present in the table, closes #21.
 v2.1.4.0  2014/05/05 Parser object no longer prints 'csvLine empty' when debug printing is turned off, closes #19.
 v2.1.3.0  2014/05/05 Added out-of-range protection to applicable csv-cpp methods and added relevant unit tests, closes #18. Added ability to delete both records and fields and added unit tests, closes #11. Moved operator overload definitions into '.cpp' files, closes #28.
 v2.1.2.0  2014/05/05 Renamed Eclipse project to 'csv-cpp', closes #27. Also renamed in README.
