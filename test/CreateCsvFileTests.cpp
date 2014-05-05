@@ -2,7 +2,7 @@
 //! @file 			CreateCsvFileTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/08
-//! @last-modified 	2014/05/01
+//! @last-modified 	2014/05/05
 //! @brief 			Tests the CSV file creation ability of the Parser object.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -27,20 +27,20 @@ namespace CsvCppTest
 			CsvCpp::errorMsg.buff = &std::cout;
 
 			CsvCpp::Parser csvParser;
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 
-			CsvCpp::Record record1;
+			CsvCpp::CsvRecord record1;
 			record1.AddField("element11");
 			record1.AddField("element12");
 			csvTable.AddRecord(record1);
 
-			CsvCpp::Record record2;
+			CsvCpp::CsvRecord record2;
 			record2.AddField("element21");
 			record2.AddField("element22");
 			csvTable.AddRecord(record2);
 
 			// Create CSV file, passing the filename in instead of using SetFilename().
-			csvParser.CreateCsvFile(csvTable, "test/output.csv");
+			csvParser.CreateCsvFile(&csvTable, "test/output.csv");
 
 			// Now read back the file so that we can check it is correct
 			std::ifstream myIfStream("test/output.csv", std::ifstream::in);
@@ -72,14 +72,14 @@ namespace CsvCppTest
 			CsvCpp::errorMsg.buff = &std::cout;
 
 			CsvCpp::Parser csvParser;
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 
-			CsvCpp::Record record1;
+			CsvCpp::CsvRecord record1;
 			record1.AddField("element11");
 			record1.AddField("element12");
 			csvTable.AddRecord(record1);
 
-			CsvCpp::Record record2;
+			CsvCpp::CsvRecord record2;
 			record2.AddField("element21");
 			record2.AddField("element22");
 			csvTable.AddRecord(record2);
@@ -88,7 +88,7 @@ namespace CsvCppTest
 			csvParser.SetFilename("test/output.csv");
 
 			// Create CSV file, calling overloaded CreateCsvFile().
-			csvParser.CreateCsvFile(csvTable);
+			csvParser.CreateCsvFile(&csvTable);
 
 			// Now read back the file so that we can check it is correct
 			std::ifstream myIfStream("test/output.csv", std::ifstream::in);

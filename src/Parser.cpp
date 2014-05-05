@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/02
+//! @last-modified 	2014/05/05
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -48,7 +48,7 @@ namespace CsvCpp
 		this->filename = filename;
 	}
 
-	Record Parser::ReadRecord()
+	CsvRecord Parser::ReadRecord()
 	{
 		std::ifstream myIfStream(this->filename, std::ifstream::in);
 
@@ -72,9 +72,9 @@ namespace CsvCpp
 
 	}
 
-	Table Parser::ReadEntireFile(std::string fileName)
+	CsvTable Parser::ReadEntireFile(std::string fileName)
 	{
-		Table csvTable;
+		CsvTable csvTable;
 
 		std::ifstream myIfStream(fileName, std::ifstream::in);
 
@@ -142,19 +142,19 @@ namespace CsvCpp
 
 	}
 
-	Table Parser::ReadEntireFile()
+	CsvTable Parser::ReadEntireFile()
 	{
 		// Call base function with file being the one stored
 		// in the variable "filename" (set with SetFilename()).
 		return this->ReadEntireFile(this->filename);
 	}
 
-	void Parser::CreateCsvFile(Table csvTable, std::string fileName)
+	void Parser::CreateCsvFile(const CsvTable* csvTable, std::string fileName)
 	{
 		// Note: This function is overloaded.
 
 		debugMsg << "Creating CSV file." << std::endl;
-		debugMsg << "Num. records = " << csvTable.NumRecords() << "." << std::endl;
+		debugMsg << "Num. records = " << csvTable->NumRecords() << "." << std::endl;
 
 		// Create output stream to file
 		std::ofstream outputFile(fileName);
@@ -162,17 +162,17 @@ namespace CsvCpp
 		// Iterate through the CSV table
 		uint32_t x, y;
 
-		for(x = 0; x < csvTable.NumRecords(); x++)
+		for(x = 0; x < csvTable->NumRecords(); x++)
 		{
-			debugMsg << "Num. fields = " << csvTable[x].NumFields() << "." << std::endl;
-			for(y = 0; y < csvTable[x].NumFields(); y++)
+			debugMsg << "Num. fields = " << (*csvTable)[x].NumFields() << "." << std::endl;
+			for(y = 0; y < ((*csvTable)[x].NumFields()); y++)
 			{
-				debugMsg << "Writing '" << csvTable[x][y] << "' to file." << std::endl;
-				outputFile << csvTable[x][y];
+				debugMsg << "Writing '" << (*csvTable)[x][y] << "' to file." << std::endl;
+				outputFile << (*csvTable)[x][y];
 
 				// Add a field delimiter as long as this IS NOT
 				// the last field in the record
-				if(y != csvTable[x].NumFields() - 1)
+				if(y != (*csvTable)[x].NumFields() - 1)
 					outputFile << this->fieldDelimiter;
 
 			}
@@ -186,16 +186,16 @@ namespace CsvCpp
 		outputFile.close();
 	}
 
-	void Parser::CreateCsvFile(Table csvTable)
+	void Parser::CreateCsvFile(const CsvTable* csvTable)
 	{
 		// Call the base function, providing the filename
 		this->CreateCsvFile(csvTable, this->filename);
 	}
 
-	Record Parser::RecordStringToRecord(std::string csvLine)
+	CsvRecord Parser::RecordStringToRecord(std::string csvLine)
 	{
 		int lastPosOfFieldDelimiter = 0;
-		Record csvRecord;
+		CsvRecord csvRecord;
 		while(1)
 		{
 			// Find the next occurrence of the field delimiter
@@ -249,7 +249,7 @@ namespace CsvCpp
 		return csvRecord;
 	}
 
-	Parser::Status Parser::GetStatus(Table* csvTable)
+	Parser::Status Parser::GetStatus(const CsvTable* csvTable)
 	{
 		debugMsg << "Entered Parser::GetStatus()." << std::endl;
 		// Create a status object, which we will fill in with information.

@@ -26,9 +26,9 @@ namespace CsvCppTest
 			CsvCpp::debugMsg.buff = &std::cout;
 			CsvCpp::errorMsg.buff = &std::cout;
 
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 
-			CsvCpp::Record record;
+			CsvCpp::CsvRecord record;
 			record.AddField("aaa");
 			record.AddField("bbb");
 

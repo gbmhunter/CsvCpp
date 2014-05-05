@@ -2,7 +2,7 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/02
+//! @last-modified 	2014/05/05
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -18,12 +18,12 @@
 #include "../lib/boost/optional/optional.hpp"
 
 // User source
-#include "Record.hpp"
-#include "Table.hpp"
+#include "CsvRecord.hpp"
+#include "CsvTable.hpp"
 
 namespace CsvCpp
 {
-
+	//! @brief		The Parser object is used to manipulate CSV files and CSV code objects (e.g. CsvTables and CsvRecords).
 	class Parser
 	{
 		public:
@@ -83,31 +83,31 @@ namespace CsvCpp
 			void SetFilename(std::string filename);
 
 			//! @brief		Read a record from the CSV file
-			Record ReadRecord();
+			CsvRecord ReadRecord();
 
 			//! @brief		Read an entire CSV file. Simplified overload, uses filename set with SetFilename().
 			//! @details	Calls ReadRecord() many times.
-			Table ReadEntireFile();
+			CsvTable ReadEntireFile();
 
 			//! @brief		Read an entire CSV file, using provided file name. Base overload.
 			//! @details	Calls ReadRecord() many times.
 			//! @param		filename		The filename you want to read from. Bypasses this->filename.
-			Table ReadEntireFile(std::string filename);
+			CsvTable ReadEntireFile(std::string filename);
 
 			//! @brief		Creates a CSV file from the given Table object, and the provided filename.
 			//! @param		table		A CsvCpp::Table object to create the CSV file from.
 			//! @param		fileName	The filename of the CSV file to create. Bypasses this->filename.
 			//! @note		Overloaded (this is the base function the others call).
-			void CreateCsvFile(Table csvTable, std::string fileName);
+			void CreateCsvFile(const CsvTable* csvTable, std::string fileName);
 
 			//! @brief		Creates a CSV file from the given Table object.
 			//! @param		table		A CsvCpp::Table object to create the CSV file from.
 			//! @note		Overloaded.
-			void CreateCsvFile(Table csvTable);
+			void CreateCsvFile(const CsvTable* csvTable);
 
 			//! @brief		Used to get the status of a CSV table.
 			//! @param		csvTable	The CSV table you want to check the status of.
-			Status GetStatus(Table* csvTable);
+			Status GetStatus(const CsvTable* csvTable);
 
 			//! @brief		What the parser will search for in the CSV files as a record delimiter.
 			//! @details	Typically set to "\r\n" (CRLF) or just "\n" (LF).
@@ -132,7 +132,7 @@ namespace CsvCpp
 
 			//! @brief		Converts a line of the CSV file in string (text) format to a Record object.
 			//! @param		csvRowString	The string to converter to a record object.
-			Record RecordStringToRecord(std::string csvRowString);
+			CsvRecord RecordStringToRecord(std::string csvRowString);
 
 	};
 

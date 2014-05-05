@@ -43,7 +43,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				// Call ReadEntireFile() without providing filename
@@ -84,7 +84,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				// Call ReadEntireFile() without providing filename
@@ -124,7 +124,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				// Call ReadEntireFile() without providing filename
@@ -166,7 +166,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				// Call ReadEntireFile() without providing filename
@@ -214,7 +214,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				// Call ReadEntireFile() without providing filename

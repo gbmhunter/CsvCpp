@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/05/02
-- Version: v2.1.0.0
+- Last Modified: 2014/05/05
+- Version: v2.1.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -136,6 +136,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.1.1.0  2014/05/05 Made class functions and function arguments 'const' where applicable, closes #25, closes #26. Changed Parser::CreateCsvFile() so that it takes a pointer to a CsvTable, closes #23. Prepended Table and Record objects with 'Csv', closes #22.
 v2.1.0.0  2014/05/02 Added 'Parser::GetStatus(Table table)', which returns an object full of status info about the provided CSV table, and added relevant unit tests, closes #15. Improved Makefile code, closes #20. Added parts of the boost library to 'lib/boost/'. Added 'boost::optional' object to list of dependencies in README.
 v2.0.6.0  2014/05/01 Added constructor that accepts record and field delimiters, closes #16. Converted default field and record delimiters into macros, closes #17.
 v2.0.5.0  2014/05/01 Provided overload of 'Parser::CreateCsvFile()' which uses 'Parser::filename' instead of passing the filename in, and added relevant unit tests, closes #14.

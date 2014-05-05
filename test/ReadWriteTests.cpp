@@ -36,7 +36,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				csvTable = csvParser.ReadEntireFile();
@@ -83,7 +83,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				csvTable = csvParser.ReadEntireFile();
@@ -119,7 +119,7 @@ namespace CsvCppTest
 			csvParser.recordDelimiter = "\r\n";
 
 			// Read back the entire file, file not exist, so within try/catch
-			CsvCpp::Table csvTable;
+			CsvCpp::CsvTable csvTable;
 			try
 			{
 				csvTable = csvParser.ReadEntireFile();
