@@ -7,11 +7,9 @@
 //! @details
 //!
 
+// System libraries
 #include <iostream>
 #include <fstream>
-
-// User libraries
-
 
 // User source
 #include "../include/Parser.hpp"
@@ -129,7 +127,7 @@ namespace CsvCpp
 			// row has a new line character at the end
 			if (csvLine.empty())
 			{
-				std::cerr << "csvLine empty." << std::endl;
+				debugMsg << "csvLine empty." << std::endl;
 				break;
 			}
 
