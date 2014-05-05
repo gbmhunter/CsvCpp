@@ -67,19 +67,22 @@ namespace CsvCpp
 			};
 
 			//! @brief		Base constructor.
-			//! @note		Overloaded (this is the base function that others call).
 			//! @param		fieldDelimiter	The delimiter that is used to separate fields in a record (e.g. ","). Can be more than one character.
 			//! @param		recordDelimiter	The delimiter that is used to separate records in a CSV file (e.g. "\r\n"). Can be more than one character.
+			//! @throws		Does not throw.
+			//! @note		Overloaded (this is the base function that others call).
 			Parser(std::string fieldDelimiter, std::string recordDelimiter);
 
 			//! @brief		Simplified constructor.
 			//! @details	Provides default settings for the record delimiter and field delimiter.
+			//! @throws		Does not throw.
 			//! @note 		Overloaded.
 			Parser();
 
 			//! @brief		Sets the filename for the CSV file.
 			//! @details	Used if a filename is not provided to functions like ReadEntireFile() and CreateCsvFile().
 			//! @param		filename	The filename you want to save in the Parser object.
+			//! @throws		Does not throw.
 			void SetFilename(std::string filename);
 
 			//! @brief		Read a record from the CSV file
@@ -107,6 +110,7 @@ namespace CsvCpp
 
 			//! @brief		Used to get the status of a CSV table.
 			//! @param		csvTable	The CSV table you want to check the status of.
+			//! @throws		Does not throw.
 			Status GetStatus(const CsvTable* csvTable);
 
 			//! @brief		What the parser will search for in the CSV files as a record delimiter.

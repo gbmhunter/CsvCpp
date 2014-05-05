@@ -13,7 +13,7 @@
 // System includes
 #include <string>
 #include <vector>
-#include <cstdint>
+#include <stdint.h>
 
 namespace CsvCpp
 {
@@ -24,22 +24,25 @@ namespace CsvCpp
 		public:
 
 			//! @brief		Overload the [] operator to provide a specific field from the CSV record.
-			const std::string & operator[](std::size_t index) const
-			{
-				return fieldV[index];
-			}
+			//! @throws		{const char*} if index is outside valid range.
+			const std::string & operator[](std::size_t index) const;
 
 			//! @brief		Overload the [] operator to provide a specific field from the CSV record.
-			std::string & operator[](std::size_t index)
-			{
-				return fieldV[index];
-			}
+			//! @throws		{const char*} if index is outside valid range.
+			std::string & operator[](std::size_t index);
 
 			//! @brief		Adds a field to the end of the record.
 			//! @details	Record fields can be accessed once added with the [] operator.
+			//! @throws		Does not throw.
 			void AddField(std::string field);
 
+			//! @brief		Removes the field at the specified 0-based index.
+			//! @param		index The 0-based index of the field you wish to remove.
+			//! @throws		{const char*} if index is outside valid range.
+			void RemoveField(uint32_t elementIndex);
+
 			//! @brief		Returns the number of fields in the record.
+			//! @throws		Does not throw.
 			uint32_t NumFields() const;
 
 		private:
