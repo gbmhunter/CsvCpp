@@ -2,7 +2,7 @@
 //! @file 			RemoveTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/05/05
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief 			Contains tests which remove elements from CsvRecord and CsvTable objects.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -61,9 +61,9 @@ namespace CsvCppTest
 				// Should not get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 
 			// Should still have the one record
@@ -103,9 +103,9 @@ namespace CsvCppTest
 				// Should not get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 
 			// Should still have two fields

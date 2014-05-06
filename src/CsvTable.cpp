@@ -2,7 +2,7 @@
 //! @file 			CsvTable.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief			Contains the CsvTable object, which represents a CSV file.
 //! @details
 //!
@@ -11,6 +11,7 @@
 #include <iostream>
 #include <fstream>
 #include <cstdint>
+#include <stdexcept>
 
 // User source
 #include "../include/CsvTable.hpp"
@@ -23,7 +24,7 @@ namespace CsvCpp
 	{
 		// index is unsigned so no need to check for negatives
 		if(index > this->recordV.size() - 1)
-			throw "Tried to access record outside range of record array.";
+			throw std::range_error("Tried to access record outside range of record array.");
 
 		return this->recordV[index];
 	}
@@ -32,7 +33,7 @@ namespace CsvCpp
 	{
 		// index is unsigned so no need to check for negatives
 		if(index > this->recordV.size() - 1)
-			throw "Tried to access record outside range of record array.";
+			throw std::range_error("Tried to access record outside range of record array.");
 
 		return this->recordV[index];
 	}
@@ -48,7 +49,7 @@ namespace CsvCpp
 	{
 		// Make sure index is in range
 		if(index > this->recordV.size() - 1)
-			throw "Tried to remove record outside range of record array.";
+			throw std::range_error("Tried to remove record outside range of record array.");
 
 		this->recordV.erase(this->recordV.begin() + index);
 	}

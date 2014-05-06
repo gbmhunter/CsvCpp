@@ -2,7 +2,7 @@
 //! @file 			CsvRecord.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief			Contains the Record object, which is used to represent a row of a CSV file.
 //! @details
 //!
@@ -24,11 +24,11 @@ namespace CsvCpp
 		public:
 
 			//! @brief		Overload the [] operator to provide a specific field from the CSV record.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			const std::string & operator[](std::size_t index) const;
 
 			//! @brief		Overload the [] operator to provide a specific field from the CSV record.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			std::string & operator[](std::size_t index);
 
 			//! @brief		Adds a field to the end of the record.
@@ -38,7 +38,7 @@ namespace CsvCpp
 
 			//! @brief		Removes the field at the specified 0-based index.
 			//! @param		index The 0-based index of the field you wish to remove.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			void RemoveField(uint32_t elementIndex);
 
 			//! @brief		Returns the number of fields in the record.
@@ -46,6 +46,7 @@ namespace CsvCpp
 			uint32_t NumFields() const;
 
 		private:
+
 			//! @brief		Used to internally store the retrieved elements from a row in a CSV file.
 			std::vector<std::string> fieldV;
 

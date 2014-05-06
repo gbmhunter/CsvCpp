@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <stdexcept> // Use of std::range_error class for exceptions.
 
 #include "../include/CsvRecord.hpp"
 
@@ -19,7 +20,7 @@ namespace CsvCpp
 	{
 		// index is unsigned so no need to check for negatives
 		if(index > this->fieldV.size() - 1)
-			throw "Tried to access field outside range of field array.";
+			throw std::range_error("Tried to access field outside range of field array.");
 
 		return this->fieldV[index];
 	}
@@ -28,7 +29,7 @@ namespace CsvCpp
 	{
 		// index is unsigned so no need to check for negatives
 		if(index > this->fieldV.size() - 1)
-			throw "Tried to access field outside range of field array.";
+			throw std::range_error("Tried to access field outside range of field array.");
 
 		return fieldV[index];
 	}
@@ -42,9 +43,7 @@ namespace CsvCpp
 	{
 		// Make sure index is in range
 		if(elementIndex > (this->fieldV.size() - 1))
-		{
-			throw "Tried to remove field outside range of field array.";
-		}
+			throw std::range_error("Tried to remove field outside range of field array.");
 
 		this->fieldV.erase(this->fieldV.begin() + elementIndex);
 	}

@@ -2,7 +2,7 @@
 //! @file 			CsvTable.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief			Contains the CsvTable object, which represents a CSV file.
 //! @details
 //!
@@ -10,9 +10,11 @@
 #ifndef CSV_CPP_CSV_TABLE_H
 #define CSV_CPP_CSV_TABLE_H
 
+// Standard libraries
 #include <string>
 #include <vector>
 
+// User source
 #include "CsvRecord.hpp"
 
 namespace CsvCpp
@@ -24,12 +26,12 @@ namespace CsvCpp
 		public:
 
 			//! @brief		Overload the [] operator to provide a specific record from the CSV table.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			//! @note		Overloaded. This is the const overload.
 			const CsvRecord & operator[](std::size_t index) const;
 
 			//! @brief		Overload the [] operator to provide a specific record from the CSV table.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			//! @note		Overloaded. This is the non-const overload.
 			CsvRecord & operator[](std::size_t index);
 
@@ -41,7 +43,7 @@ namespace CsvCpp
 
 			//! @brief		Removes the record at the specified 0-based index.
 			//! @param		index The 0-based index of the record you wish to remove.
-			//! @throws		{const char*} if index is outside valid range.
+			//! @throws		{std::range_error} if index is outside valid range.
 			void RemoveRecord(uint32_t index);
 
 			//! @brief		Returns the number of records in the CSV table.

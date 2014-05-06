@@ -2,7 +2,7 @@
 //! @file 			EmptyFileTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/05/05
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief 			Makes sure the Parser can read from an empty file safely.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -46,9 +46,9 @@ namespace CsvCppTest
 				// Remove CSV filename now that we have finished reading it
 				remove("test/test.csv");
 			}
-			catch(const char* msg)
+			catch(std::exception& e)
 			{
-				std::cout << msg;
+				std::cout << e.what();
 				// Something bad happened
 				CHECK(false);
 				return;

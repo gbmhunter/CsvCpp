@@ -2,7 +2,7 @@
 //! @file 			AccessTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/05/05
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief 			Contains tests which which makes sure access to CsvRecord and CsvTable objects is safe (i.e. accessing out-of-range elements).
 //! @details
 //!					See README.rst in root dir for more info.
@@ -37,9 +37,9 @@ namespace CsvCppTest
 				// Should never get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 
 		}
@@ -61,9 +61,9 @@ namespace CsvCppTest
 				// Should never get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 
 		}
@@ -89,9 +89,9 @@ namespace CsvCppTest
 				// Should not get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 		}
 
@@ -116,9 +116,9 @@ namespace CsvCppTest
 				// Should not get here!
 				CHECK(false);
 			}
-			catch(const char* exception)
+			catch(std::exception& e)
 			{
-				std::cerr << exception << std::endl;
+				std::cerr << e.what() << std::endl;
 			}
 		}
 

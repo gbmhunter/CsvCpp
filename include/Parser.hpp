@@ -2,7 +2,7 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/06
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -13,6 +13,7 @@
 // System includes
 #include <string>
 #include <vector>
+#include <stdexcept>
 
 // User libraries
 #include "../lib/boost/optional/optional.hpp"
@@ -23,6 +24,7 @@
 
 namespace CsvCpp
 {
+
 	//! @brief		The Parser object is used to manipulate CSV files and CSV code objects (e.g. CsvTables and CsvRecords).
 	class Parser
 	{
@@ -90,13 +92,13 @@ namespace CsvCpp
 
 			//! @brief		Read an entire CSV file. Simplified overload, uses filename set with SetFilename().
 			//! @details	Calls ReadRecord() many times.
-			//! @throws		{const char*} If it can't open the file.
+			//! @throws		{std::runtime_error} if it can't open the file.
 			CsvTable ReadEntireFile();
 
 			//! @brief		Read an entire CSV file, using provided file name. Base overload.
 			//! @details	Calls ReadRecord() many times.
 			//! @param		filename		The filename you want to read from. Bypasses this->filename.
-			//! @throws		{const char*} If it can't open the file.
+			//! @throws		{std::runtime_error} if it can't open the file.
 			CsvTable ReadEntireFile(std::string filename);
 
 			//! @brief		Creates a CSV file from the given Table object, and the provided filename.
