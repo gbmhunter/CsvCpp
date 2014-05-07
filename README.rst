@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/05/06
-- Version: v2.1.6.0
+- Last Modified: 2014/05/07
+- Version: v2.1.7.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -104,15 +104,13 @@ Issues
 
 See GitHub Issues.
 
-Limitations
-===========
+Examples
+========
 
-Nothing here yet!
+Following are some basic examples. See "example/" or "test/" for more examples.
 
-Usage
-=====
-
-This is a basic example. See "example/" or "test/" for more examples. In main.cpp add...
+Reading A CSV File Into A CsvTable Object And Then Printing Out Each Field
+-------------------------------------------------------------------------- 
 
 ::
 
@@ -121,7 +119,69 @@ This is a basic example. See "example/" or "test/" for more examples. In main.cp
 	
 	int main()
 	{
+		CsvCpp::Parser csvParser;
+		
+		csvParser.SetFilename("test.csv");
+		csvParser.fieldDelimiter = ",";
+		csvParser.recordDelimiter = "\n";
+
+		// Attempt to read the entire file into the csvTable object.
+		CsvCpp::CsvTable csvTable;
+		try
+		{
+			csvTable = csvParser.ReadEntireFile();
+		}
+		catch(std::exception& e)
+		{
+			std::cout << e.what();
+			// Something bad happened
+			return -1;
+		}
+
+		// Print out the CSV table, record by record, field by field
+		uint32_t x, y;
+
+		for(x = 0; x < csvTable.NumRecords(); x++)
+		{
+			for(y = 0; y < csvTable[x].NumFields(); y++)
+			{
+				std::cout << "csvTable[" << x << "][" << y << "] = " << csvTable[x][y] << std::endl;
+
+			}
+		}
+		
+		// Parsing successful!
+		return 0;
+	}
 	
+Writing A CSV File
+------------------
+
+::
+
+	#include "api/CsvCpp.hpp"
+	
+	int main()
+	{
+	
+		CsvCpp::Parser csvParser;
+		CsvCpp::CsvTable csvTable;
+	
+		CsvCpp::CsvRecord record1;
+		record1.AddField("element11");
+		record1.AddField("element12");
+		csvTable.AddRecord(record1);
+	
+		CsvCpp::CsvRecord record2;
+		record2.AddField("element21");
+		record2.AddField("element22");
+		csvTable.AddRecord(record2);
+	
+		// Set the filename
+		csvParser.SetFilename("output.csv");
+	
+		// Create CSV file, passing in the CSV table object we wish to create to file with
+		csvParser.CreateCsvFile(&csvTable);
 	}
 	
 	
@@ -136,6 +196,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.1.7.0  2014/05/07 Removed 'Limitations' section of README, closes #35. Added more examples to the 'Example' section of README, closes #33. Correct the exception catch to the correct object type in 'test/ReadEntireFileTests.cpp' and 'test/ReadWriteTests.cpp', closes #34.
 v2.1.6.0  2014/05/06 Converted 'const char*' exceptions into standard exceptions from the standard C++ library, modified unit tests to suit, closes #31. Fixed link to TravisCI image in README, closes #32.
 v2.1.5.0  2014/05/05 Fixed bug where 'Parser::GetStatus()' would crash if an empty CsvTable object was passed to it, closes #29. Added unit test to make sure 'Parser::GetStatus()' returns 'isWellformed == false' if no records are present in the table, closes #21.
 v2.1.4.0  2014/05/05 Parser object no longer prints 'csvLine empty' when debug printing is turned off, closes #19.
