@@ -2,8 +2,8 @@
 //! @file 			SafeNullLoggingTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/09
-//! @last-modified 	2014/04/09
-//! @brief 			Tests that it is safe to log data if a ostream hasn't been assigned.
+//! @last-modified 	2014/05/19
+//! @brief 			Tests that it is safe to "log" data if the debug and error ostream pointers havn't been assigned.
 //! @details
 //!					See README.rst in root dir for more info.
 
@@ -22,7 +22,7 @@ namespace CsvCppTest
 
 		TEST(SafeNullLoggingTest)
 		{
-			// Connect up error and debug streams
+			// Don't connect up error and debug streams
 			CsvCpp::debugMsg.buff = NULL;
 			CsvCpp::errorMsg.buff = NULL;
 
@@ -33,6 +33,6 @@ namespace CsvCppTest
 			CsvCpp::errorMsg << "Testing!";
 		}
 
-	} // SUITE(CreateCsvFileTests)
+	} // SUITE(SafeNullLoggingTests)
 
 } // namespace CsvCppTest

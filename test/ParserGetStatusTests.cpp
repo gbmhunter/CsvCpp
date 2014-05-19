@@ -2,7 +2,7 @@
 //! @file 			ParserGetStatusTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/05/02
-//! @last-modified 	2014/05/02
+//! @last-modified 	2014/05/19
 //! @brief 			Contains tests using the Parser::GetStatus() function.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -241,7 +241,6 @@ namespace CsvCppTest
 			// Pass if we got here!
 			CHECK(true);
 		}
-
 
 	} // SUITE(ParserGetStatusTests)
 } // namespace CsvCppTest

@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/06
+//! @last-modified 	2014/05/19
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -10,6 +10,7 @@
 // System libraries
 #include <iostream>
 #include <fstream>
+#include <string>		// std::string, std::stod()
 
 // User source
 #include "../include/Parser.hpp"
@@ -193,12 +194,25 @@ namespace CsvCpp
 
 	CsvRecord Parser::RecordStringToRecord(std::string csvLine)
 	{
+		debugMsg << "Entered '" << __FUNCTION__ << "'." << std::endl;
+
 		int lastPosOfFieldDelimiter = 0;
 		CsvRecord csvRecord;
+
+		// Used to change the algorithm the first time it runs through
+		bool firstTime = true;
+
 		while(1)
 		{
 			// Find the next occurrence of the field delimiter
-			int nextPosOfFieldDelimiter = csvLine.find(this->fieldDelimiter, lastPosOfFieldDelimiter + 1);
+			int nextPosOfFieldDelimiter;
+			if(firstTime)
+			{
+				nextPosOfFieldDelimiter = csvLine.find(this->fieldDelimiter, lastPosOfFieldDelimiter);
+				firstTime = false;
+			}
+			else
+				nextPosOfFieldDelimiter = csvLine.find(this->fieldDelimiter, lastPosOfFieldDelimiter + 1);
 
 			int x = 0;
 			std::string field;
@@ -206,7 +220,9 @@ namespace CsvCpp
 			// Check to see if delimiter was found
 			if(nextPosOfFieldDelimiter == (int)std::string::npos)
 			{
-				// Delimiter was not found
+				debugMsg << "Delimiter was not found, must be last field in record." << std::endl;
+				// Delimiter was not found, must be last field in record,
+				// so add all remaining characters
 				for(x = lastPosOfFieldDelimiter + 1; x < (int)csvLine.length(); x++)
 				{
 					field += csvLine[x];
@@ -215,7 +231,7 @@ namespace CsvCpp
 			else
 			{
 				// Next delimiter in row was found
-
+				debugMsg << "Delimiter was found, must not be last field in record." << std::endl;
 				// Check to see wether we are at the first element or not
 				if(lastPosOfFieldDelimiter == 0)
 				{
@@ -317,7 +333,55 @@ namespace CsvCpp
 			}
 		}
 
+		//============= CHECK IF ALL FIELDS ARE NUMERAL =============//
+
+		// Set to true, and then if we find any one field which isn't numeral,
+		// set to false
+		status.allFieldsNumeral.reset(true);
+
+		// Iterate through all fields in the CsvTable
+		for(uint32_t x = 0; x < (*csvTable).NumRecords(); x++)
+		{
+			for(uint32_t y = 0; y < (*csvTable)[x].NumFields(); y++)
+			{
+				//std::cout << "csvTable[" << x << "][" << y << "] = " << csvTable[x][y] << std::endl;
+				std::size_t pos;
+				try
+				{
+					double result = std::stod((*csvTable)[x][y], &pos);
+				}
+				catch(std::invalid_argument& e)
+				{
+					// Non-numeral found in field!
+					status.allFieldsNumeral.reset(false);
+					// Finish test, no need to keep checking
+					goto END_OF_NUMERAL_CHECK;
+				}
+				catch(std::out_of_range& e)
+				{
+					// Non-numeral found in field!
+					status.allFieldsNumeral.reset(false);
+					// Finish test, no need to keep checking
+					goto END_OF_NUMERAL_CHECK;
+				}
+
+				// Even if exception wasn't thrown, the "number" could still
+				// have non-numerals at the end of it
+				if(pos != (*csvTable)[x][y].size())
+				{
+					// Non-numeral found in field!
+					status.allFieldsNumeral.reset(false);
+					// Finish test, no need to keep checking
+					goto END_OF_NUMERAL_CHECK;
+				}
+			}
+		}
+
+		END_OF_NUMERAL_CHECK:
+
 		//======================== FINISHED =========================//
+
+
 
 		debugMsg << "Exiting Parser::GetStatus()..." << std::endl;
 

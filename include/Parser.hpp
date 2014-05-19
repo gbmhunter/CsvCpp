@@ -2,7 +2,7 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/06
+//! @last-modified 	2014/05/19
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -43,7 +43,8 @@ namespace CsvCpp
 					allRecordsHaveEqualNumFields(),
 					hasNoBlankFields(),
 					numRecords(),
-					numFields()
+					numFields(),
+					allFieldsNumeral()
 				{
 					// Nothing to go here
 				}
@@ -65,6 +66,10 @@ namespace CsvCpp
 				//! @brief		Used to return the number of fields each record has, only if all records have the same number of fields (i.e. allRecordsHaveEqualNumFields == true).
 				//! @details	If all records don't have the same number of fields, this variable is not initialised.
 				boost::optional<uint32_t> numFields;
+
+				//! @brief		Used to indicate whether all fields of a CSV table are numeral or not.
+				//!	@details	A numeral can be an positive or negative integer, a positive or negative decimal, a positive or negative exponential in the form -2.3e45 or -2.3E45, or a hexidecimal in the form 0xDA. true if all fields are numeral, otherwise false.
+				boost::optional<bool> allFieldsNumeral;
 
 			};
 
@@ -114,6 +119,7 @@ namespace CsvCpp
 
 			//! @brief		Used to get the status of a CSV table.
 			//! @param		csvTable	The CSV table you want to check the status of.
+			//! @returns	A Status object which contains various information about the CsvTable.
 			//! @throws		Does not throw.
 			Status GetStatus(const CsvTable* csvTable);
 

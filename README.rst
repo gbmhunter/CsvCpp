@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/05/07
-- Version: v2.1.7.0
+- Last Modified: 2014/05/19
+- Version: v2.1.8.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -196,6 +196,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.1.8.0  2014/05/19 Fixed bug when the first field of a record was empty, closes #38. Add relevant unit tests for this, closes #39. Added 'Parser::Status' variable which idicates whether every field in CsvTable is numeral or not and added relevant unit tests, closes #37.
 v2.1.7.0  2014/05/07 Removed 'Limitations' section of README, closes #35. Added more examples to the 'Example' section of README, closes #33. Correct the exception catch to the correct object type in 'test/ReadEntireFileTests.cpp' and 'test/ReadWriteTests.cpp', closes #34.
 v2.1.6.0  2014/05/06 Converted 'const char*' exceptions into standard exceptions from the standard C++ library, modified unit tests to suit, closes #31. Fixed link to TravisCI image in README, closes #32.
 v2.1.5.0  2014/05/05 Fixed bug where 'Parser::GetStatus()' would crash if an empty CsvTable object was passed to it, closes #29. Added unit test to make sure 'Parser::GetStatus()' returns 'isWellformed == false' if no records are present in the table, closes #21.
