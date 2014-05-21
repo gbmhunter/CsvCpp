@@ -2,7 +2,7 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/19
+//! @last-modified 	2014/05/21
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -17,10 +17,12 @@
 
 // User libraries
 #include "../lib/boost/optional/optional.hpp"
+#include "../lib/logger-cpp/include/Log.hpp"
 
 // User source
 #include "CsvRecord.hpp"
 #include "CsvTable.hpp"
+
 
 namespace CsvCpp
 {
@@ -31,7 +33,7 @@ namespace CsvCpp
 		public:
 
 			//! @brief		Class used as a container for status information returned from GetStatus().
-			//! @details	Uses the boost::optional object for describing the optional nature of some of Status's variables. Use if(myOptionalObject) to first test whether it is non-null, then access it's value by dereferencing (*myOptionalObject).
+			//! @details	Uses the boost::optional object for describing the optional nature of some of Status's variables. Use if(myOptionalObject) to first test whether it is non-null, then access it's value by dereferencing (*myOptionalObject), or using .get() on it.
 			class Status
 			{
 
@@ -109,11 +111,13 @@ namespace CsvCpp
 			//! @brief		Creates a CSV file from the given Table object, and the provided filename.
 			//! @param		table		A CsvCpp::Table object to create the CSV file from.
 			//! @param		fileName	The filename of the CSV file to create. Bypasses this->filename.
+			//! @throws		{std::runtime_error} if the file is not written to successfully.
 			//! @note		Overloaded (this is the base function the others call).
 			void CreateCsvFile(const CsvTable* csvTable, std::string fileName);
 
 			//! @brief		Creates a CSV file from the given Table object.
 			//! @param		table		A CsvCpp::Table object to create the CSV file from.
+			//! @throws		{std::runtime_error} if the file is not written to successfully.
 			//! @note		Overloaded.
 			void CreateCsvFile(const CsvTable* csvTable);
 
@@ -147,6 +151,12 @@ namespace CsvCpp
 			//! @brief		Converts a line of the CSV file in string (text) format to a Record object.
 			//! @param		csvRowString	The string to converter to a record object.
 			CsvRecord RecordStringToRecord(std::string csvRowString);
+
+
+			void CheckOStream(std::ostream* ostream);
+
+			//Log debugMsg;
+			//Log errorMsg;
 
 	};
 

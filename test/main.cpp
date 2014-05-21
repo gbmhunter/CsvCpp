@@ -2,7 +2,7 @@
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/07
-//! @last-modified 	2014/05/02
+//! @last-modified 	2014/05/21
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -32,7 +32,7 @@ int main()
 	
 		return runner.RunTestsIf(
 			UnitTest::Test::GetTestList(),
-			"ParserGetStatusTests",			// Enter a test suite name here to only run those tests
+			"CreateCsvFileTests",			// Enter a test suite name here to only run those tests
 			UnitTest::True(),
 			0);
     }

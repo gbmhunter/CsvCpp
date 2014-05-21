@@ -2,7 +2,7 @@
 //! @file 			CreateCsvFileTests.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/08
-//! @last-modified 	2014/05/05
+//! @last-modified 	2014/05/21
 //! @brief 			Tests the CSV file creation ability of the Parser object.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -111,6 +111,44 @@ namespace CsvCppTest
 
 			// Now delete the file
 			remove("test/output.csv");
+		}
+
+		TEST(CreateCsvFileWithInvalidFilenameTest)
+		{
+			// Connect up error and debug streams
+			CsvCpp::debugMsg.buff = &std::cout;
+			CsvCpp::errorMsg.buff = &std::cout;
+
+			CsvCpp::Parser csvParser;
+			CsvCpp::CsvTable csvTable;
+
+			CsvCpp::CsvRecord record1;
+			record1.AddField("element11");
+			record1.AddField("element12");
+			csvTable.AddRecord(record1);
+
+			CsvCpp::CsvRecord record2;
+			record2.AddField("element21");
+			record2.AddField("element22");
+			csvTable.AddRecord(record2);
+
+			// Create CSV file, to something we know will be inaccessable,
+			// should throw
+
+			try
+			{
+				csvParser.CreateCsvFile(&csvTable, "/dev/test.csv");
+				// Code should not get here!
+				CHECK(false);
+				// Something went wrong, delete file
+				remove("/dev/test.csv");
+			}
+			catch(std::exception& e)
+			{
+				// Exception thrown as expected
+				CHECK(true);
+				return;
+			}
 		}
 
 	} // SUITE(CreateCsvFileTests)

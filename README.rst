@@ -11,8 +11,8 @@ Character-Seperated Values (CSV) Parser
 
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
-- Last Modified: 2014/05/19
-- Version: v2.1.8.0
+- Last Modified: 2014/05/21
+- Version: v2.2.0.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -184,6 +184,11 @@ Writing A CSV File
 		csvParser.CreateCsvFile(&csvTable);
 	}
 	
+Checking Various Stats About CsvTable Object
+--------------------------------------------
+
+
+	
 	
 FAQ
 ===
@@ -196,6 +201,8 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.2.0.0  2014/05/21 Fixed debug and error printing with addition of Logger library (in 'lib/logger-cpp/'). Added exception throwing for 'Parser::CreateCsvFile()', closes #36.
+v2.1.9.0  2014/05/19 Added comment that you can use .get() function on Boost optional variables.
 v2.1.8.0  2014/05/19 Fixed bug when the first field of a record was empty, closes #38. Add relevant unit tests for this, closes #39. Added 'Parser::Status' variable which idicates whether every field in CsvTable is numeral or not and added relevant unit tests, closes #37.
 v2.1.7.0  2014/05/07 Removed 'Limitations' section of README, closes #35. Added more examples to the 'Example' section of README, closes #33. Correct the exception catch to the correct object type in 'test/ReadEntireFileTests.cpp' and 'test/ReadWriteTests.cpp', closes #34.
 v2.1.6.0  2014/05/06 Converted 'const char*' exceptions into standard exceptions from the standard C++ library, modified unit tests to suit, closes #31. Fixed link to TravisCI image in README, closes #32.

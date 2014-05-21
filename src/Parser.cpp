@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/19
+//! @last-modified 	2014/05/20
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -11,11 +11,18 @@
 #include <iostream>
 #include <fstream>
 #include <string>		// std::string, std::stod()
+#include <cstring>		// stderror()
+#include <stdexcept>	// For throwing std::runtime_error exceptions
+
+// User libraries
+#include "../lib/logger-cpp/include/Colours.hpp"
+#include "../lib/logger-cpp/include/Log.hpp"
 
 // User source
+#include "../include/Logger.hpp"
 #include "../include/Parser.hpp"
-#include "../include/Log.hpp"
 #include "../include/Config.hpp"
+
 
 namespace CsvCpp
 {
@@ -34,6 +41,7 @@ namespace CsvCpp
 
 	void Parser::SharedConstructorCode(std::string fieldDelimiter, std::string recordDelimiter)
 	{
+		//InitLogger();
 
 		// Default delimiter for CSV files
 		this->recordDelimiter = recordDelimiter;
@@ -149,15 +157,40 @@ namespace CsvCpp
 		return this->ReadEntireFile(this->filename);
 	}
 
+	void Parser::CheckOStream(std::ostream* ostream)
+	{
+		if((*ostream).fail())
+		{
+			if ((*ostream).eof())
+			{
+				//errorMsg << "Unexpected end of file." << std::endl;
+				throw std::runtime_error("Unexpected end of file.");
+			}
+			else if (errno)
+			{
+				//errorMsg << std::string(strerror(errno)) << std::endl;
+				throw std::runtime_error(strerror(errno));
+			}
+			else
+			{
+				//errorMsg << "Unknown file error." << std::endl;
+				throw std::runtime_error("Unknown file error.");
+			}
+		}
+	}
+
 	void Parser::CreateCsvFile(const CsvTable* csvTable, std::string fileName)
 	{
 		// Note: This function is overloaded.
 
-		debugMsg << "Creating CSV file." << std::endl;
+		debugMsg << "Entered '" << __FUNCTION__ << "'." << std::endl;
 		debugMsg << "Num. records = " << csvTable->NumRecords() << "." << std::endl;
 
 		// Create output stream to file
 		std::ofstream outputFile(fileName);
+		this->CheckOStream(&outputFile);
+
+		std::string result;
 
 		// Iterate through the CSV table
 		uint32_t x, y;
@@ -169,21 +202,28 @@ namespace CsvCpp
 			{
 				debugMsg << "Writing '" << (*csvTable)[x][y] << "' to file." << std::endl;
 				outputFile << (*csvTable)[x][y];
+				this->CheckOStream(&outputFile);
 
 				// Add a field delimiter as long as this IS NOT
 				// the last field in the record
 				if(y != (*csvTable)[x].NumFields() - 1)
+				{
 					outputFile << this->fieldDelimiter;
+					this->CheckOStream(&outputFile);
+				}
 
 			}
 			// Record delimiter is added to the end of every record,
 			// including the last record in the file.
 			debugMsg << "Writing record delimiter." << std::endl;
 			outputFile << this->recordDelimiter;
+			this->CheckOStream(&outputFile);
 		}
 
 		// Close the output file
 		outputFile.close();
+		this->CheckOStream(&outputFile);
+
 	}
 
 	void Parser::CreateCsvFile(const CsvTable* csvTable)

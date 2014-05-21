@@ -2,15 +2,15 @@
 # @file 			Makefile
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
 # @edited 			n/a
-# @created			2014/04/07
+# @created			2014/05/20
 # @last-modified 	2014/05/20
-# @brief 			Makefile for Linux-based make, to compile the csv-cpp library, example code and run unit test code.
+# @brief 			Makefile for Linux-based make, to compile the library, example code and run unit test code.
 # @details
 #					See README in repo root dir for more info.
 
 SRC_CC := g++
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
-SRC_LD_FLAGS := -I./lib/logger-cpp
+SRC_LD_FLAGS := 
 SRC_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
 
 TEST_CC := g++
@@ -26,16 +26,16 @@ EXAMPLE_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
 .PHONY: depend clean
 
 # All
-all: csvCppLib test example loggerCpp
+all: srcLib test #example
 	
 	# Run unit tests:
-	@./test/CsvCppTest.elf
+	#@./test/test.elf
 
 #======== CSV-CPP LIB ==========	
 
-csvCppLib : $(SRC_OBJ_FILES) | loggerCpp
+srcLib : $(SRC_OBJ_FILES)
 	# Make Clide library
-	ar r libCsvCpp.a $(SRC_OBJ_FILES) ./lib/logger-cpp/libLoggerCpp.a
+	ar r libLoggerCpp.a $(SRC_OBJ_FILES)
 	
 # Generic rule for src object files
 src/%.o: src/%.cpp
@@ -52,9 +52,9 @@ src/%.o: src/%.cpp
 # ======== TEST ========
 	
 # Compiles unit test code
-test : $(TEST_OBJ_FILES) | csvCppLib unitTestLib
+test : $(TEST_OBJ_FILES) | srcLib unitTestLib
 	# Compiling unit test code
-	g++ $(TEST_LD_FLAGS) -o ./test/CsvCppTest.elf $(TEST_OBJ_FILES) -L./lib/UnitTest++ -lUnitTest++ -L./ -lCsvCpp -L./lib/logger-cpp -lLoggerCpp
+	g++ $(TEST_LD_FLAGS) -o ./test/test.elf $(TEST_OBJ_FILES) -L./lib/UnitTest++ -lUnitTest++ -L./ -lCsvCpp
 
 # Generic rule for test object files
 test/%.o: test/%.cpp
@@ -71,17 +71,12 @@ unitTestLib:
 	# Compile UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./lib/UnitTest++/ all
 	
-# ====== LOGGER-CPP ==========
-
-loggerCpp:
-	$(MAKE) -C ./lib/logger-cpp/ all
-	
 # ===== EXAMPLE ======
 
 # Compiles example code
-example : $(EXAMPLE_OBJ_FILES) csvCppLib
+example : $(EXAMPLE_OBJ_FILES) srcLib
 	# Compiling example code
-	g++ $(EXAMPLE_LD_FLAGS) -o ./example/Example.elf $(EXAMPLE_OBJ_FILES) -L./ -lCsvCpp -L./lib/logger-cpp -lLoggerCpp
+	g++ $(EXAMPLE_LD_FLAGS) -o ./example/Example.elf $(EXAMPLE_OBJ_FILES) -L./ -lLoggerCpp
 	
 # Generic rule for test object files
 example/%.o: example/%.cpp
@@ -89,7 +84,7 @@ example/%.o: example/%.cpp
 	
 # ====== CLEANING ======
 	
-clean: clean-ut clean-csv-cpp
+clean: clean-ut clean-src
 	# Clean UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./lib/UnitTest++/ clean
 	
@@ -97,7 +92,7 @@ clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
 	@echo " Cleaning test executable..."; $(RM) ./test/*.elf
 	
-clean-csv-cpp:
+clean-src:
 	@echo " Cleaning src object files..."; $(RM) ./src/*.o
 	@echo " Cleaning src dependency files..."; $(RM) ./src/*.d
 	@echo " Cleaning csv-cpp static library..."; $(RM) ./*.a
