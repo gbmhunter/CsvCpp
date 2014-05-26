@@ -90,7 +90,8 @@ namespace CsvCpp
 		{
 			//errorMsg << "Error opening '" << fileName << "'" << std::endl;
 			//throw "Couldn't open file.\r\n";
-			throw std::runtime_error("Couldn't open '" << fileName << "'.");
+			std::string tempString = "Couldn't open '" + fileName + "'.";
+			throw std::runtime_error(tempString);
 		}
 
 		// Read the entire file stream into a string so we can peform

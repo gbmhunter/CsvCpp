@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/05/26
-- Version: v2.2.1.0
+- Version: v2.2.2.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -201,6 +201,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.2.2.0  2014/05/26 Fixed error in code introduced in previous commit, now compiles o.k.
 v2.2.1.0  2014/05/26 Filename now returned when invalid filename exception thrown in 'Parser::ReadEntireFile()'., and errorMsg is no longer printed to, closes #42.
 v2.2.0.0  2014/05/21 Fixed debug and error printing with addition of Logger library (in 'lib/logger-cpp/'). Added exception throwing for 'Parser::CreateCsvFile()', closes #36.
 v2.1.9.0  2014/05/19 Added comment that you can use .get() function on Boost optional variables.
