@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/20
+//! @last-modified 	2014/05/26
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -83,13 +83,14 @@ namespace CsvCpp
 	{
 		CsvTable csvTable;
 
+		// Setup input filestream on the filename provided
 		std::ifstream myIfStream(fileName, std::ifstream::in);
 
 		if ( (myIfStream.rdstate() & std::ifstream::failbit ) != 0 )
 		{
-			errorMsg << "Error opening '" << fileName << "'" << std::endl;
+			//errorMsg << "Error opening '" << fileName << "'" << std::endl;
 			//throw "Couldn't open file.\r\n";
-			throw std::runtime_error("Couldn't open file.");
+			throw std::runtime_error("Couldn't open '" << fileName << "'.");
 		}
 
 		// Read the entire file stream into a string so we can peform
