@@ -2,7 +2,7 @@
 //! @file 			Parser.hpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com>
 //! @created		2014/04/03
-//! @last-modified 	2014/05/21
+//! @last-modified 	2014/05/27
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -17,7 +17,7 @@
 
 // User libraries
 #include "../lib/boost/optional/optional.hpp"
-#include "../lib/logger-cpp/include/Log.hpp"
+#include "../lib/logger-cpp/api/LoggerApi.hpp"
 
 // User source
 #include "CsvRecord.hpp"

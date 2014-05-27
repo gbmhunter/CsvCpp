@@ -12,7 +12,7 @@ Character-Seperated Values (CSV) Parser
 - Author: gbmhunter <gbmhunter@gmail.com> (http://www.cladlab.com)
 - Created: 2014/04/07
 - Last Modified: 2014/05/27
-- Version: v2.3.0.0
+- Version: v2.3.1.0
 - Company: CladLabs
 - Project: Free Code Libraries
 - Language: C++
@@ -201,6 +201,7 @@ Changelog
 ========= ========== ===================================================================================================
 Version    Date       Comment
 ========= ========== ===================================================================================================
+v2.3.1.0  2014/05/27 Add 'logger-cpp' into 'lib/logger-cpp' as a git submodule. Updated 'logger-cpp' to fix crash with static initilisation fiasco bug. Makefile clean now cleans 'logger-cpp' library code correctly also.
 v2.3.0.0  2014/05/27 Removed manually placed 'lib/logger-cpp' files in preparation for adding it as a git submodule instead.
 v2.2.2.0  2014/05/26 Fixed error in code introduced in previous commit, now compiles o.k.
 v2.2.1.0  2014/05/26 Filename now returned when invalid filename exception thrown in 'Parser::ReadEntireFile()'., and errorMsg is no longer printed to, closes #42.

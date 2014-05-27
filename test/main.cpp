@@ -2,7 +2,7 @@
 //! @file 			main.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/07
-//! @last-modified 	2014/05/21
+//! @last-modified 	2014/05/27
 //! @brief 			Contains main entry point for unit tests.
 //! @details
 //!					See README.rst in root dir for more info.
@@ -20,6 +20,8 @@
 int main()
 {
 
+	//std::cout << "TESTING" << std::endl;
+	//while(1);
 	// Run all tests. Comment this out and run code below if you only
 	// want to run particular tests
 	return UnitTest::RunAllTests();

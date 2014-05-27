@@ -2,7 +2,7 @@
 //! @file 			Parser.cpp
 //! @author 		Geoffrey Hunter <gbmhunter@gmail.com> (www.cladlab.com)
 //! @created		2014/04/03
-//! @last-modified 	2014/05/26
+//! @last-modified 	2014/05/27
 //! @brief			CSV file parser, which can both decode and encode CSV files.
 //! @details
 //!
@@ -15,8 +15,7 @@
 #include <stdexcept>	// For throwing std::runtime_error exceptions
 
 // User libraries
-#include "../lib/logger-cpp/include/Colours.hpp"
-#include "../lib/logger-cpp/include/Log.hpp"
+#include "lib/logger-cpp/api/LoggerApi.hpp"
 
 // User source
 #include "../include/Logger.hpp"

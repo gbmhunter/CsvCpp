@@ -3,7 +3,7 @@
 # @author 			Geoffrey Hunter <gbmhunter@gmail.com> (wwww.cladlab.com)
 # @edited 			n/a
 # @created			2014/04/07
-# @last-modified 	2014/05/20
+# @last-modified 	2014/05/27
 # @brief 			Makefile for Linux-based make, to compile the csv-cpp library, example code and run unit test code.
 # @details
 #					See README in repo root dir for more info.
@@ -11,17 +11,17 @@
 SRC_CC := g++
 SRC_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard src/*.cpp))
 SRC_LD_FLAGS := -I./lib/logger-cpp
-SRC_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
+SRC_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++0x
 
 TEST_CC := g++
 TEST_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard test/*.cpp))
 TEST_LD_FLAGS := 
-TEST_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
+TEST_CC_FLAGS := -Wall -g -c  -I. -I./lib -std=c++0x
 
 EXAMPLE_CC := g++
 EXAMPLE_OBJ_FILES := $(patsubst %.cpp,%.o,$(wildcard example/*.cpp))
 EXAMPLE_LD_FLAGS := 
-EXAMPLE_CC_FLAGS := -Wall -g -c -I./lib -std=c++0x
+EXAMPLE_CC_FLAGS := -Wall -g -c -I. -I./lib -std=c++0x
 
 .PHONY: depend clean
 
@@ -92,6 +92,7 @@ example/%.o: example/%.cpp
 clean: clean-ut clean-csv-cpp
 	# Clean UnitTest++ library (has it's own Makefile)
 	$(MAKE) -C ./lib/UnitTest++/ clean
+	$(MAKE) -C ./lib/logger-cpp/ clean
 	
 clean-ut:
 	@echo " Cleaning test object files..."; $(RM) ./test/*.o
